@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:CSCI352BigProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1600">
-  <Grid>
-    <Grid x:Name="primaryCalendar" HorizontalAlignment="Left" Height="749" Margin="10,10,0,0" VerticalAlignment="Top" Width="1078" ShowGridLines="true"/>
-
-  </Grid>
+    <Grid>
+        <Grid x:Name="calendar" HorizontalAlignment="Left" Height="749" Margin="10,10,0,0" VerticalAlignment="Top" Width="1003" ShowGridLines="True"/>
+    </Grid>
 </Window>

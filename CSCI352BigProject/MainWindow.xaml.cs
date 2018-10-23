@@ -24,7 +24,7 @@ namespace CSCI352BigProject
         {
             InitializeComponent();
 
-            //populate grid with boxes
+            //Define the columns
             ColumnDefinition col0 = new ColumnDefinition();
             ColumnDefinition col1 = new ColumnDefinition();
             ColumnDefinition col2 = new ColumnDefinition();
@@ -33,43 +33,101 @@ namespace CSCI352BigProject
             ColumnDefinition col5 = new ColumnDefinition();
             ColumnDefinition col6 = new ColumnDefinition();
 
-            primaryCalendar.ColumnDefinitions.Add(col0);
-            primaryCalendar.ColumnDefinitions.Add(col1);
-            primaryCalendar.ColumnDefinitions.Add(col2);
-            primaryCalendar.ColumnDefinitions.Add(col3);
-            primaryCalendar.ColumnDefinitions.Add(col4);
-            primaryCalendar.ColumnDefinitions.Add(col5);
-            primaryCalendar.ColumnDefinitions.Add(col6);
+            //Add the columns
+            calendar.ColumnDefinitions.Add(col0);
+            calendar.ColumnDefinitions.Add(col1);
+            calendar.ColumnDefinitions.Add(col2);
+            calendar.ColumnDefinitions.Add(col3);
+            calendar.ColumnDefinitions.Add(col4);
+            calendar.ColumnDefinitions.Add(col5);
+            calendar.ColumnDefinitions.Add(col6);
 
+            //Define the rows
             RowDefinition row0 = new RowDefinition();
             RowDefinition row1 = new RowDefinition();
             RowDefinition row2 = new RowDefinition();
             RowDefinition row3 = new RowDefinition();
             RowDefinition row4 = new RowDefinition();
+            RowDefinition row5 = new RowDefinition();
+            RowDefinition row6 = new RowDefinition();
 
-            primaryCalendar.RowDefinitions.Add(row0);
-            primaryCalendar.RowDefinitions.Add(row1);
-            primaryCalendar.RowDefinitions.Add(row2);
-            primaryCalendar.RowDefinitions.Add(row3);
-            primaryCalendar.RowDefinitions.Add(row4);
 
-            
+            //Add the rows
+            calendar.RowDefinitions.Add(row0);
+            calendar.RowDefinitions.Add(row1);
+            calendar.RowDefinitions.Add(row2);
+            calendar.RowDefinitions.Add(row3);
+            calendar.RowDefinitions.Add(row4);
+            calendar.RowDefinitions.Add(row5);
+            calendar.RowDefinitions.Add(row6);
 
-            //row0.Style{
-               // Border gridBorder = new Border()
-              //  {
-               //     BorderThickness = new Thickness()
-               //    {
-                //        Bottom = 1,
-                //        Left = 1,
-                //        Right = 1,
-                //        Top = 1
-               //     },
-                //    BorderBrush = new SolidColorBrush(Colors.Black)
-               // };
-           // };
+            //Add Days
+            TextBlock sunday = new TextBlock();
+            sunday.Text = "Sunday";
+            sunday.FontSize = 20;
+            sunday.HorizontalAlignment = HorizontalAlignment.Center;
+            sunday.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(sunday, 1);
+            Grid.SetColumn(sunday, 0);
 
-            primaryCalendar.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 50, 100, 0));
+            TextBlock monday = new TextBlock();
+            monday.Text = "Monday";
+            monday.FontSize = 20;
+            monday.HorizontalAlignment = HorizontalAlignment.Center;
+            monday.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(monday, 1);
+            Grid.SetColumn(monday, 1);
+
+            TextBlock tuesday = new TextBlock();
+            tuesday.Text = "Tuesday";
+            tuesday.FontSize = 20;
+            tuesday.HorizontalAlignment = HorizontalAlignment.Center;
+            tuesday.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(tuesday, 1);
+            Grid.SetColumn(tuesday, 2);
+
+            TextBlock wednesday = new TextBlock();
+            wednesday.Text = "Wednesday";
+            wednesday.FontSize = 20;
+            wednesday.HorizontalAlignment = HorizontalAlignment.Center;
+            wednesday.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(wednesday, 1);
+            Grid.SetColumn(wednesday, 3);
+
+            TextBlock thursday = new TextBlock();
+            thursday.Text = "Thursday";
+            thursday.FontSize = 20;
+            thursday.HorizontalAlignment = HorizontalAlignment.Center;
+            thursday.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(thursday, 1);
+            Grid.SetColumn(thursday, 4);
+
+            TextBlock friday = new TextBlock();
+            friday.Text = "Friday";
+            friday.FontSize = 20;
+            friday.HorizontalAlignment = HorizontalAlignment.Center;
+            friday.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(friday, 1);
+            Grid.SetColumn(friday, 5);
+
+            TextBlock saturday = new TextBlock();
+            saturday.Text = "Saturday";
+            saturday.FontSize = 20;
+            saturday.HorizontalAlignment = HorizontalAlignment.Center;
+            saturday.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(saturday, 1);
+            Grid.SetColumn(saturday, 6);
+
+            calendar.Children.Add(sunday);
+            calendar.Children.Add(monday);
+            calendar.Children.Add(tuesday);
+            calendar.Children.Add(wednesday);
+            calendar.Children.Add(thursday);
+            calendar.Children.Add(friday);
+            calendar.Children.Add(saturday);
+
+
+
 
         }
     }
