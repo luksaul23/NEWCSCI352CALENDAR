@@ -24,6 +24,10 @@ namespace CSCI352BigProject
         {
             InitializeComponent();
 
+            MonthSelector.Items.Add("October");
+            MonthSelector.Items.Add("November");
+            MonthSelector.Items.Add("December");
+
             //Define the columns
             ColumnDefinition col0 = new ColumnDefinition();
             ColumnDefinition col1 = new ColumnDefinition();
@@ -50,6 +54,8 @@ namespace CSCI352BigProject
             RowDefinition row4 = new RowDefinition();
             RowDefinition row5 = new RowDefinition();
             RowDefinition row6 = new RowDefinition();
+            RowDefinition row7 = new RowDefinition();
+
 
 
             //Add the rows
@@ -60,6 +66,7 @@ namespace CSCI352BigProject
             calendar.RowDefinitions.Add(row4);
             calendar.RowDefinitions.Add(row5);
             calendar.RowDefinitions.Add(row6);
+            calendar.RowDefinitions.Add(row7);
 
             //Add Days
             TextBlock sunday = new TextBlock();
@@ -120,20 +127,35 @@ namespace CSCI352BigProject
 
             Rectangle rectangle1 = new Rectangle();
             rectangle1.Fill = System.Windows.Media.Brushes.Gray;
+            rectangle1.Stroke = System.Windows.Media.Brushes.Black;
+            rectangle1.StrokeThickness = 2;
             Grid.SetRow(rectangle1, 1);
             Grid.SetColumnSpan(rectangle1, 7);
 
             TextBlock month = new TextBlock();
-            month.Text = "September";
-            month.FontSize = 30;
+            month.Text = "October";
+            month.FontSize = 40;
             month.FontWeight = FontWeights.Bold;
             month.HorizontalAlignment = HorizontalAlignment.Center;
             month.VerticalAlignment = VerticalAlignment.Center;
             Grid.SetRow(month, 0);
-            Grid.SetColumnSpan(month, 7);         
+            Grid.SetColumnSpan(month, 7);
+
+            for (int i = 2; i < calendar.RowDefinitions.Count; i++)
+            {
+                for(int j = 0; j < calendar.ColumnDefinitions.Count; j++)
+                {
+                    Rectangle rectangle2 = new Rectangle();
+                    rectangle2.Stroke = System.Windows.Media.Brushes.Black;
+                    rectangle2.StrokeThickness = 1;
+                    Grid.SetRow(rectangle2, i);
+                    Grid.SetColumn(rectangle2, j);
+                    calendar.Children.Add(rectangle2);
+
+                }
+            }
 
             calendar.Children.Add(rectangle1);
-            calendar.Children.Add(month);
             calendar.Children.Add(sunday);
             calendar.Children.Add(monday);
             calendar.Children.Add(tuesday);
@@ -144,6 +166,27 @@ namespace CSCI352BigProject
             
 
 
+        }
+
+        private void MonthSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string month = MonthSelector.SelectedItem.ToString();
+        }
+
+        void ClearCalendar()
+        {
+            for (int i = 2; i < calendar.RowDefinitions.Count; i++)
+            {
+                for (int j = 0; j < calendar.ColumnDefinitions.Count; j++)
+                {
+                    TextBlock day = new TextBlock();
+                    day.Text = "";
+                    day.HorizontalAlignment = HorizontalAlignment.Left;
+                    day.VerticalAlignment = VerticalAlignment.Top;
+                    calendar.Children.Add(day);
+                }
+            }
+        }
         }
     }
 }
