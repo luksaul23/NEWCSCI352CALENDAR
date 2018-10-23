@@ -118,6 +118,22 @@ namespace CSCI352BigProject
             Grid.SetRow(saturday, 1);
             Grid.SetColumn(saturday, 6);
 
+            Rectangle rectangle1 = new Rectangle();
+            rectangle1.Fill = System.Windows.Media.Brushes.Gray;
+            Grid.SetRow(rectangle1, 1);
+            Grid.SetColumnSpan(rectangle1, 7);
+
+            TextBlock month = new TextBlock();
+            month.Text = "September";
+            month.FontSize = 30;
+            month.FontWeight = FontWeights.Bold;
+            month.HorizontalAlignment = HorizontalAlignment.Center;
+            month.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(month, 0);
+            Grid.SetColumnSpan(month, 7);         
+
+            calendar.Children.Add(rectangle1);
+            calendar.Children.Add(month);
             calendar.Children.Add(sunday);
             calendar.Children.Add(monday);
             calendar.Children.Add(tuesday);
@@ -125,8 +141,7 @@ namespace CSCI352BigProject
             calendar.Children.Add(thursday);
             calendar.Children.Add(friday);
             calendar.Children.Add(saturday);
-
-
+            
 
 
         }
