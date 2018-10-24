@@ -52,9 +52,25 @@ namespace CSCI352BigProject
                 _mw.calendar.Children.Add(title);
 
             }
-            else
+            else if (month == "December")
             {
                 Months Month = new December(_mw);
+                Month.SetDays();
+
+                TextBlock title = new TextBlock();
+                title.Text = month;
+                title.FontSize = 40;
+                title.FontWeight = FontWeights.Bold;
+                title.HorizontalAlignment = HorizontalAlignment.Center;
+                title.VerticalAlignment = VerticalAlignment.Center;
+                Grid.SetRow(title, 0);
+                Grid.SetColumnSpan(title, 7);
+                _mw.calendar.Children.Add(title);
+
+            }
+            else
+            {
+                Months Month = new January(_mw);
                 Month.SetDays();
 
                 TextBlock title = new TextBlock();

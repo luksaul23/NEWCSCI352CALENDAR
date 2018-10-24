@@ -9,12 +9,12 @@ using System.Windows.Shapes;
 
 namespace CSCI352BigProject
 {
-    class December : Months
+    class January : Months
     {
         //main window to gain access to the calendar object
         private MainWindow _mw;
 
-        public December(MainWindow mainWindow)
+        public January(MainWindow mainWindow)
         {
             _mw = mainWindow;
 
@@ -81,6 +81,7 @@ namespace CSCI352BigProject
             Grid.SetRow(saturday, 1);
             Grid.SetColumn(saturday, 6);
 
+            //rectangle for the background of the days of the week
             Rectangle rectangle1 = new Rectangle();
             rectangle1.Fill = System.Windows.Media.Brushes.Gray;
             rectangle1.Stroke = System.Windows.Media.Brushes.Black;
@@ -88,7 +89,7 @@ namespace CSCI352BigProject
             Grid.SetRow(rectangle1, 1);
             Grid.SetColumnSpan(rectangle1, 7);
 
-            //Add the rectangles with borders to the normal days
+            //Add the rectangles that have the border to the normal days
             for (int i = 2; i < _mw.calendar.RowDefinitions.Count; i++)
             {
                 for (int j = 0; j < _mw.calendar.ColumnDefinitions.Count; j++)
@@ -103,7 +104,7 @@ namespace CSCI352BigProject
                 }
             }
 
-            //Add the days of the week and the background for teh days to the calendar
+            //add the day names and background for the names
             _mw.calendar.Children.Add(rectangle1);
             _mw.calendar.Children.Add(sunday);
             _mw.calendar.Children.Add(monday);
@@ -114,7 +115,7 @@ namespace CSCI352BigProject
             _mw.calendar.Children.Add(saturday);
 
 
-            //process for adding the textblocks that contain the day numbers
+            //process for adding the textblocks containings the day numbers
 
             for (int i = 2; i < _mw.calendar.RowDefinitions.Count; i++)
             {
@@ -141,45 +142,13 @@ namespace CSCI352BigProject
                         Grid.SetColumn(day, temp);
                         count++;
                     }
-                    else if (count == 2)
-                    {
-                        int temp = count + 3;
-                        day.Text = "";
-                        Grid.SetRow(day, i);
-                        Grid.SetColumn(day, temp);
-                        count++;
-                    }
-                    else if (count == 3)
-                    {
-                        int temp = count + 4;
-                        day.Text = "";
-                        Grid.SetRow(day, i);
-                        Grid.SetColumn(day, temp);
-                        count++;
-                    }
-                    else if (count == 4)
-                    {
-                        int temp = count + 5;
-                        day.Text = "";
-                        Grid.SetRow(day, i);
-                        Grid.SetColumn(day, temp);
-                        count++;
-                    }
-                    else if (count == 5)
-                    {
-                        int temp = count + 6;
-                        day.Text = "";
-                        Grid.SetRow(day, i);
-                        Grid.SetColumn(day, temp);
-                        count++;
-                    }
-                    else if (count > 36)
+                    else if (count > 32)
                     {
                         day.Text = "";
                     }
                     else
                     {
-                        int temp = count - 5;
+                        int temp = count-1;
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, j);
                         day.Text = temp.ToString();
@@ -192,3 +161,4 @@ namespace CSCI352BigProject
         }
     }
 }
+
