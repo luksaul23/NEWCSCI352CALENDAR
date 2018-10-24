@@ -28,7 +28,6 @@ namespace CSCI352BigProject
             MonthSelector.Items.Add("November");
             MonthSelector.Items.Add("December");
 
-
             //Define the columns
             ColumnDefinition col0 = new ColumnDefinition();
             ColumnDefinition col1 = new ColumnDefinition();
@@ -69,7 +68,11 @@ namespace CSCI352BigProject
             calendar.RowDefinitions.Add(row6);
             calendar.RowDefinitions.Add(row7);
 
-
+            if (MonthSelector.SelectedIndex == 0)
+            {
+                October october = new October(this);
+                october.SetDays();
+            }
         }
 
         private void MonthSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -78,6 +81,7 @@ namespace CSCI352BigProject
             AbsFactory Factory = new MonthFactory(this);
             calendar.Children.Clear();
             Factory.ChangeMonth(month);
+
             TextBlock title = new TextBlock();
             title.Text = month;
             title.FontSize = 40;

@@ -119,6 +119,7 @@ namespace CSCI352BigProject
                     day.Text = count.ToString();
                     day.HorizontalAlignment = HorizontalAlignment.Left;
                     day.VerticalAlignment = VerticalAlignment.Top;
+                    day.Margin = new Thickness(10, 10, 0, 0);
                     if (count == 0)
                     {
                         int temp = count + 1;
