@@ -28,6 +28,7 @@ namespace CSCI352BigProject
             MonthSelector.Items.Add("November");
             MonthSelector.Items.Add("December");
 
+
             //Define the columns
             ColumnDefinition col0 = new ColumnDefinition();
             ColumnDefinition col1 = new ColumnDefinition();
@@ -68,109 +69,23 @@ namespace CSCI352BigProject
             calendar.RowDefinitions.Add(row6);
             calendar.RowDefinitions.Add(row7);
 
-            //Add Days
-            TextBlock sunday = new TextBlock();
-            sunday.Text = "Sunday";
-            sunday.FontSize = 20;
-            sunday.HorizontalAlignment = HorizontalAlignment.Center;
-            sunday.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(sunday, 1);
-            Grid.SetColumn(sunday, 0);
-
-            TextBlock monday = new TextBlock();
-            monday.Text = "Monday";
-            monday.FontSize = 20;
-            monday.HorizontalAlignment = HorizontalAlignment.Center;
-            monday.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(monday, 1);
-            Grid.SetColumn(monday, 1);
-
-            TextBlock tuesday = new TextBlock();
-            tuesday.Text = "Tuesday";
-            tuesday.FontSize = 20;
-            tuesday.HorizontalAlignment = HorizontalAlignment.Center;
-            tuesday.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(tuesday, 1);
-            Grid.SetColumn(tuesday, 2);
-
-            TextBlock wednesday = new TextBlock();
-            wednesday.Text = "Wednesday";
-            wednesday.FontSize = 20;
-            wednesday.HorizontalAlignment = HorizontalAlignment.Center;
-            wednesday.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(wednesday, 1);
-            Grid.SetColumn(wednesday, 3);
-
-            TextBlock thursday = new TextBlock();
-            thursday.Text = "Thursday";
-            thursday.FontSize = 20;
-            thursday.HorizontalAlignment = HorizontalAlignment.Center;
-            thursday.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(thursday, 1);
-            Grid.SetColumn(thursday, 4);
-
-            TextBlock friday = new TextBlock();
-            friday.Text = "Friday";
-            friday.FontSize = 20;
-            friday.HorizontalAlignment = HorizontalAlignment.Center;
-            friday.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(friday, 1);
-            Grid.SetColumn(friday, 5);
-
-            TextBlock saturday = new TextBlock();
-            saturday.Text = "Saturday";
-            saturday.FontSize = 20;
-            saturday.HorizontalAlignment = HorizontalAlignment.Center;
-            saturday.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(saturday, 1);
-            Grid.SetColumn(saturday, 6);
-
-            Rectangle rectangle1 = new Rectangle();
-            rectangle1.Fill = System.Windows.Media.Brushes.Gray;
-            rectangle1.Stroke = System.Windows.Media.Brushes.Black;
-            rectangle1.StrokeThickness = 2;
-            Grid.SetRow(rectangle1, 1);
-            Grid.SetColumnSpan(rectangle1, 7);
-
-            TextBlock month = new TextBlock();
-            month.Text = "October";
-            month.FontSize = 40;
-            month.FontWeight = FontWeights.Bold;
-            month.HorizontalAlignment = HorizontalAlignment.Center;
-            month.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(month, 0);
-            Grid.SetColumnSpan(month, 7);
-
-            for (int i = 2; i < calendar.RowDefinitions.Count; i++)
-            {
-                for(int j = 0; j < calendar.ColumnDefinitions.Count; j++)
-                {
-                    Rectangle rectangle2 = new Rectangle();
-                    rectangle2.Stroke = System.Windows.Media.Brushes.Black;
-                    rectangle2.StrokeThickness = 1;
-                    Grid.SetRow(rectangle2, i);
-                    Grid.SetColumn(rectangle2, j);
-                    calendar.Children.Add(rectangle2);
-
-                }
-            }
-
-            calendar.Children.Add(rectangle1);
-            calendar.Children.Add(sunday);
-            calendar.Children.Add(monday);
-            calendar.Children.Add(tuesday);
-            calendar.Children.Add(wednesday);
-            calendar.Children.Add(thursday);
-            calendar.Children.Add(friday);
-            calendar.Children.Add(saturday);
-            
-
 
         }
 
         private void MonthSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string month = MonthSelector.SelectedItem.ToString();
+            AbsFactory Factory = new MonthFactory(this);
+            calendar.Children.Clear();
+            Factory.ChangeMonth(month);
+            TextBlock title = new TextBlock();
+            title.Text = month;
+            title.FontSize = 40;
+            title.FontWeight = FontWeights.Bold;
+            title.HorizontalAlignment = HorizontalAlignment.Center;
+            title.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(title, 0);
+            Grid.SetColumnSpan(title, 7);
         }
 
         void ClearCalendar()
@@ -187,6 +102,6 @@ namespace CSCI352BigProject
                 }
             }
         }
-        }
+        
     }
 }

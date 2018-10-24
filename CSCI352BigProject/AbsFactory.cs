@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CSCI352BigProject
 {
-    class AbsFactory
+    abstract class AbsFactory
     {
-
+        abstract public void ChangeMonth(string month);
     }
 }
