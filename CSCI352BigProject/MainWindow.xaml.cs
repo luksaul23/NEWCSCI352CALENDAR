@@ -21,11 +21,15 @@ namespace CSCI352BigProject
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        string data = "";
+        OleDbConnection cn;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Events.accdb");
+            cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Events.accdb");
 
             MonthSelector.Items.Add("October");
             MonthSelector.Items.Add("November");
@@ -113,7 +117,18 @@ namespace CSCI352BigProject
 
         private void showEventsButton_Click(object sender, RoutedEventArgs e)
         {
+            string query = "select * from Events";
+            OleDbCommand cmd = new OleDbCommand(query, cn);
+            cn.Open();
+            OleDbDataReader read = cmd.ExecuteReader();
+            while (read.Read())
+            {
+                data += read[1].ToString() + " " + read[2].ToString() + "\n";
+            }
 
+            textBox1.Text = data;
+
+            cn.Close();
         }
     }
 }
