@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace CSCI352BigProject
         public MainWindow()
         {
             InitializeComponent();
+
+            cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Events.accdb");
 
             MonthSelector.Items.Add("October");
             MonthSelector.Items.Add("November");
@@ -107,6 +110,10 @@ namespace CSCI352BigProject
                 }
             }
         }
-        
+
+        private void showEventsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
