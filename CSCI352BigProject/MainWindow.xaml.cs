@@ -130,5 +130,28 @@ namespace CSCI352BigProject
 
             cn.Close();
         }
+
+        private void addEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            string query = "select * from Events";
+            //OleDbCommand cmd = new OleDbCommand(query, cn);
+            String date = dateBox.Text;
+            String ev = eventBox.Text;
+            OleDbCommand cmd = new OleDbCommand("insert into Events values (" + date + ", " + ev + ")", cn);
+            cn.Open();
+
+            cmd.ExecuteNonQuery();
+            /*
+            OleDbDataReader read = cmd.ExecuteReader();
+            while (read.Read())
+            {
+                data += read[1].ToString() + " " + read[2].ToString() + "\n";
+            }
+
+            textBox1.Text = data;
+            */
+            
+            cn.Close();
+        }
     }
 }
