@@ -113,7 +113,7 @@ namespace CSCI352BigProject
                     calendar.Children.Add(day);
                 }
             }
-        }
+        
 
         private void showEventsButton_Click(object sender, RoutedEventArgs e)
         {
