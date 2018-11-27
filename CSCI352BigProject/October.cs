@@ -14,7 +14,6 @@ namespace CSCI352BigProject
     {
 
         private MainWindow _mw;
-
         public October(MainWindow mainWindow)
         {
             _mw = mainWindow;
