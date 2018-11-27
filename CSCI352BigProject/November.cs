@@ -12,7 +12,6 @@ namespace CSCI352BigProject
     class November : Months
     {
         private MainWindow _mw;
-        public int monthNum = 11;
         public November(MainWindow mainWindow)
         {
             _mw = mainWindow;
