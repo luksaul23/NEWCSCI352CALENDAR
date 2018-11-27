@@ -13,6 +13,7 @@ namespace CSCI352BigProject
     {
         //main window to gain access to the calendar object
         private MainWindow _mw;
+        public int monthNum = 01;
 
         public January(MainWindow mainWindow)
         {

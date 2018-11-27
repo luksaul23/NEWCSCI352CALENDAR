@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static CSCI352BigProject.AddEvent;
 
 namespace CSCI352BigProject
 {
@@ -107,6 +108,17 @@ namespace CSCI352BigProject
                 }
             }
         }
-        
+
+        private void addEvent_Click(object sender, RoutedEventArgs e)
+        {
+            AddEvent addEvent = new AddEvent();
+            addEvent.RaiseCustomEvent += new EventHandler<CustomEventArgs>(addEvent_GetTitle);
+            addEvent.Show();
+        }
+
+        void addEvent_GetTitle(object sender, CustomEventArgs e)
+        {
+            this.test.Text = e.Message;
+        }
     }
 }
