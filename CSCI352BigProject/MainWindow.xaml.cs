@@ -137,10 +137,28 @@ namespace CSCI352BigProject
             //OleDbCommand cmd = new OleDbCommand(query, cn);
             String date = dateBox.Text;
             String ev = eventBox.Text;
-            OleDbCommand cmd = new OleDbCommand("insert into Events values (" + date + ", " + ev + ")", cn);
+            OleDbCommand cmd = new OleDbCommand("INSERT into Events (EventDate, Event) Values(@EventDate, @Event)", cn);
             cn.Open();
 
+            cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = date;
+            cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = ev;
+
             cmd.ExecuteNonQuery();
+            /*
+            using (OleDbConnection myCon = new OleDbConnection(ConfigurationManager.ConnectionStrings["DbConn"].ToString()))
+            {
+                OleDbCommand cmd = new OleDbCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "insert into Items ([Item_Name],[Item_Price]) values (?,?);
+   cmd.Parameters.AddWithValue("@item", itemNameTBox.Text);
+                cmd.Parameters.AddWithValue("@price", Convert.ToDouble(itemPriceTBox.Text));
+                cmd.Connection = myCon;
+                myCon.Open();
+                cmd.ExecuteNonQuery();
+                System.Windows.Forms.MessageBox.Show("An Item has been successfully added", "Caption", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }
+            */
+
             /*
             OleDbDataReader read = cmd.ExecuteReader();
             while (read.Read())
@@ -150,7 +168,7 @@ namespace CSCI352BigProject
 
             textBox1.Text = data;
             */
-            
+
             cn.Close();
         }
     }
