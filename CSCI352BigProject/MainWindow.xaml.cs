@@ -137,6 +137,9 @@ namespace CSCI352BigProject
             //OleDbCommand cmd = new OleDbCommand(query, cn);
             String date = dateBox.Text;
             String ev = eventBox.Text;
+
+            // Code for inserting found at:
+            // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
             OleDbCommand cmd = new OleDbCommand("INSERT into Events (EventDate, Event) Values(@EventDate, @Event)", cn);
             cn.Open();
 
