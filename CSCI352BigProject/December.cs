@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,10 +14,12 @@ namespace CSCI352BigProject
     {
         //main window to gain access to the calendar object
         private MainWindow _mw;
+        List<String> _events;
 
-        public December(MainWindow mainWindow)
+        public December(MainWindow mainWindow, List<String>events)
         {
             _mw = mainWindow;
+            _events = events;
 
         }
 
@@ -103,7 +106,7 @@ namespace CSCI352BigProject
                 }
             }
 
-            //Add the days of the week and the background for teh days to the calendar
+            //Add the days of the week and the background for the days to the calendar
             _mw.calendar.Children.Add(rectangle1);
             _mw.calendar.Children.Add(sunday);
             _mw.calendar.Children.Add(monday);
@@ -113,6 +116,26 @@ namespace CSCI352BigProject
             _mw.calendar.Children.Add(friday);
             _mw.calendar.Children.Add(saturday);
 
+            string setEvent(int c)
+            {
+                string eventname = "";               
+                string temp = "";
+                foreach (var k in _events)
+                {
+                    if (k.Contains("December"))
+                    {
+                        //code for extracting date found at: https://stackoverflow.com/questions/844461/return-only-digits-0-9-from-a-string/844479#844479
+                        temp = new String(k.Where(Char.IsDigit).ToArray());
+
+                        if (temp == c.ToString())
+                        {
+                            eventname += k + "\n";
+                        }
+
+                    }
+                }
+                return eventname;
+            }
 
             //process for adding the textblocks that contain the day numbers
 
@@ -122,70 +145,96 @@ namespace CSCI352BigProject
                 {
                     TextBlock day = new TextBlock();
                     day.Text = count.ToString();
+                    TextBlock eventTitle = new TextBlock();                   
                     day.HorizontalAlignment = HorizontalAlignment.Left;
                     day.VerticalAlignment = VerticalAlignment.Top;
+                    eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
+                    eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
                     day.Margin = new Thickness(10, 10, 0, 0);
                     if (count == 0)
                     {
                         int temp = count + 1;
                         day.Text = "";
+                        eventTitle.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        Grid.SetColumn(eventTitle, temp);
+                        Grid.SetRow(eventTitle, i);
                         count++;
                     }
                     else if (count == 1)
                     {
                         int temp = count + 2;
                         day.Text = "";
+                        eventTitle.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        Grid.SetColumn(eventTitle, temp);
+                        Grid.SetRow(eventTitle, i);
                         count++;
                     }
                     else if (count == 2)
                     {
                         int temp = count + 3;
                         day.Text = "";
+                        eventTitle.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        Grid.SetColumn(eventTitle, temp);
+                        Grid.SetRow(eventTitle, i);
                         count++;
                     }
                     else if (count == 3)
                     {
                         int temp = count + 4;
                         day.Text = "";
+                        eventTitle.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        Grid.SetColumn(eventTitle, temp);
+                        Grid.SetRow(eventTitle, i);
                         count++;
                     }
                     else if (count == 4)
                     {
                         int temp = count + 5;
                         day.Text = "";
+                        eventTitle.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        Grid.SetColumn(eventTitle, temp);
+                        Grid.SetRow(eventTitle, i);
                         count++;
                     }
                     else if (count == 5)
                     {
                         int temp = count + 6;
                         day.Text = "";
+                        eventTitle.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        Grid.SetColumn(eventTitle, temp);
+                        Grid.SetRow(eventTitle, i);
                         count++;
                     }
                     else if (count > 36)
                     {
                         day.Text = "";
+                        eventTitle.Text = "";
                     }
                     else
                     {
                         int temp = count - 5;
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, j);
+                        Grid.SetColumn(eventTitle, j);
+                        Grid.SetRow(eventTitle, i);
                         day.Text = temp.ToString();
+                        eventTitle.Text = setEvent(temp);
                         count++;
                     }
                     _mw.calendar.Children.Add(day);
+                    _mw.calendar.Children.Add(eventTitle);
                 }
             }
 

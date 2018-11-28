@@ -12,10 +12,13 @@ namespace CSCI352BigProject
     {
         private MainWindow _mw;
 
+        List<String> _events;
 
-        public MonthFactory(MainWindow mw)
+
+        public MonthFactory(MainWindow mw, List<String> events)
         {
             _mw = mw;
+            _events = events;
         }
 
         public override void ChangeMonth(string month)
@@ -54,7 +57,7 @@ namespace CSCI352BigProject
             }
             else if (month == "December")
             {
-                Months Month = new December(_mw);
+                Months Month = new December(_mw, _events);
                 Month.SetDays();
 
                 TextBlock title = new TextBlock();

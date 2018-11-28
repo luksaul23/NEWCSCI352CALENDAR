@@ -25,6 +25,8 @@ namespace CSCI352BigProject
         string data = "";
         OleDbConnection cn;
 
+        List<String> Events = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -86,7 +88,7 @@ namespace CSCI352BigProject
         private void MonthSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string month = MonthSelector.SelectedItem.ToString();
-            AbsFactory Factory = new MonthFactory(this);
+            AbsFactory Factory = new MonthFactory(this, Events);
             calendar.Children.Clear();
             Factory.ChangeMonth(month);
 
@@ -98,6 +100,8 @@ namespace CSCI352BigProject
             title.VerticalAlignment = VerticalAlignment.Center;
             Grid.SetRow(title, 0);
             Grid.SetColumnSpan(title, 7);
+
+            
         }
 
         void ClearCalendar()
@@ -113,8 +117,8 @@ namespace CSCI352BigProject
                     calendar.Children.Add(day);
                 }
             }
-        
 
+        }
         private void showEventsButton_Click(object sender, RoutedEventArgs e)
         {
             string query = "select * from Events";
@@ -124,8 +128,9 @@ namespace CSCI352BigProject
             while (read.Read())
             {
                 data += read[1].ToString() + " " + read[2].ToString() + "\n";
+                //Events.Add(read[1].ToString() + " " + read[2].ToString());
             }
-
+            
             textBox1.Text = data;
 
             cn.Close();
@@ -137,6 +142,7 @@ namespace CSCI352BigProject
             //OleDbCommand cmd = new OleDbCommand(query, cn);
             String date = dateBox.Text;
             String ev = eventBox.Text;
+            
 
             // Code for inserting found at:
             // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
@@ -173,6 +179,23 @@ namespace CSCI352BigProject
             */
 
             cn.Close();
+
+            string query2 = "select * from Events";
+            OleDbCommand cmd2 = new OleDbCommand(query2, cn);
+            cn.Open();
+            OleDbDataReader read = cmd2.ExecuteReader();
+            while (read.Read())
+            {
+                if(!Events.Contains(read[1].ToString() + " " + read[2].ToString()))
+                {
+                    Events.Add(read[1].ToString() + " " + read[2].ToString());
+                }
+                
+            }
+
+            cn.Close();
         }
+
+   
     }
 }
