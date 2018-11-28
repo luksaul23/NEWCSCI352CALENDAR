@@ -12,20 +12,22 @@ namespace CSCI352BigProject
     {
         private MainWindow _mw;
 
-        List<String> _events;
+        
+        Dictionary<string, string> _eventPairs = new Dictionary<string, string>();
 
 
-        public MonthFactory(MainWindow mw, List<String> events)
+        public MonthFactory(MainWindow mw, Dictionary<string, string> eventPairs)
         {
             _mw = mw;
-            _events = events;
+
+            _eventPairs = eventPairs;
         }
 
         public override void ChangeMonth(string month)
         {
             if(month == "October")
             {
-                Months Month = new October(_mw);
+                Months Month = new October(_mw, _eventPairs);
                 Month.SetDays();
 
                 TextBlock title = new TextBlock();
@@ -41,7 +43,7 @@ namespace CSCI352BigProject
             }
             else if(month == "November")
             {
-                Months Month = new November(_mw);
+                Months Month = new November(_mw, _eventPairs);
                 Month.SetDays();
 
                 TextBlock title = new TextBlock();
@@ -57,7 +59,7 @@ namespace CSCI352BigProject
             }
             else if (month == "December")
             {
-                Months Month = new December(_mw, _events);
+                Months Month = new December(_mw, _eventPairs);
                 Month.SetDays();
 
                 TextBlock title = new TextBlock();
@@ -73,7 +75,7 @@ namespace CSCI352BigProject
             }
             else
             {
-                Months Month = new January(_mw);
+                Months Month = new January(_mw, _eventPairs);
                 Month.SetDays();
 
                 TextBlock title = new TextBlock();

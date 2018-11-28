@@ -12,9 +12,12 @@ namespace CSCI352BigProject
     class November : Months
     {
         private MainWindow _mw;
-        public November(MainWindow mainWindow)
+        Dictionary<string, string> _eventPairs = new Dictionary<string, string>();
+
+        public November(MainWindow mainWindow, Dictionary<string, string> eventPairs)
         {
             _mw = mainWindow;
+            _eventPairs = eventPairs;
 
         }
 
@@ -109,7 +112,28 @@ namespace CSCI352BigProject
             _mw.calendar.Children.Add(friday);
             _mw.calendar.Children.Add(saturday);
 
+            //Check if the dictionary has an event for that month then filters
+            //out the date for placing on the appropriate day
+            string setEvent(int c)
+            {
+                string eventName = "";
+                string temp = "";
 
+                foreach (var k in _eventPairs)
+                {
+                    if (k.Key.Contains("November"))
+                    {
+                        //code for extracting date found at: https://stackoverflow.com/questions/844461/return-only-digits-0-9-from-a-string/844479#844479
+                        temp = new String(k.Key.Where(Char.IsDigit).ToArray());
+
+                        if (temp == c.ToString())
+                        {
+                            eventName += k.Value + "\n";
+                        }
+                    }
+                }
+                return eventName;
+            }
 
             for (int i = 2; i < _mw.calendar.RowDefinitions.Count; i++)
             {
@@ -117,8 +141,11 @@ namespace CSCI352BigProject
                 {
                     TextBlock day = new TextBlock();
                     day.Text = count.ToString();
+                    TextBlock eventTitle = new TextBlock();
                     day.HorizontalAlignment = HorizontalAlignment.Left;
                     day.VerticalAlignment = VerticalAlignment.Top;
+                    eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
+                    eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
                     day.Margin = new Thickness(10, 10, 0, 0);
                     if (count == 0)
                     {
@@ -126,6 +153,10 @@ namespace CSCI352BigProject
                         day.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        eventTitle.Text = "";
+                        Grid.SetRow(eventTitle, i);
+                        Grid.SetColumn(eventTitle, temp);
+
                         count++;
                     }
                     else if (count == 1)
@@ -134,6 +165,10 @@ namespace CSCI352BigProject
                         day.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        eventTitle.Text = "";
+                        Grid.SetRow(eventTitle, i);
+                        Grid.SetColumn(eventTitle, temp);
+
                         count++;
                     }
                     else if (count == 2)
@@ -142,6 +177,10 @@ namespace CSCI352BigProject
                         day.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        eventTitle.Text = "";
+                        Grid.SetRow(eventTitle, i);
+                        Grid.SetColumn(eventTitle, temp);
+
                         count++;
                     }
                     else if (count == 3)
@@ -150,21 +189,32 @@ namespace CSCI352BigProject
                         day.Text = "";
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, temp);
+                        eventTitle.Text = "";
+                        Grid.SetRow(eventTitle, i);
+                        Grid.SetColumn(eventTitle, temp);
+
                         count++;
                     }
                     else if (count > 33)
                     {
                         day.Text = "";
+                        eventTitle.Text = "";
+
                     }
                     else
                     {
                         int temp = count - 3;
                         Grid.SetRow(day, i);
                         Grid.SetColumn(day, j);
-                        day.Text = temp.ToString();
+                        day.Text = temp.ToString();                      
+                        Grid.SetRow(eventTitle, i);
+                        Grid.SetColumn(eventTitle, j);
+                        eventTitle.Text = setEvent(temp);
                         count++;
                     }
                     _mw.calendar.Children.Add(day);
+                    _mw.calendar.Children.Add(eventTitle);
+
                 }
             }
 

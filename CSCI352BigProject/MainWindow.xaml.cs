@@ -25,7 +25,8 @@ namespace CSCI352BigProject
         string data = "";
         OleDbConnection cn;
 
-        List<String> Events = new List<string>();
+        
+        Dictionary<string, string> eventDict = new Dictionary<string, string>();
 
         public MainWindow()
         {
@@ -80,7 +81,7 @@ namespace CSCI352BigProject
 
             if (MonthSelector.SelectedIndex == 0)
             {
-                October october = new October(this);
+                October october = new October(this, eventDict);
                 october.SetDays();
             }
         }
@@ -88,7 +89,7 @@ namespace CSCI352BigProject
         private void MonthSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string month = MonthSelector.SelectedItem.ToString();
-            AbsFactory Factory = new MonthFactory(this, Events);
+            AbsFactory Factory = new MonthFactory(this, eventDict);
             calendar.Children.Clear();
             Factory.ChangeMonth(month);
 
@@ -127,8 +128,7 @@ namespace CSCI352BigProject
             OleDbDataReader read = cmd.ExecuteReader();
             while (read.Read())
             {
-                data += read[1].ToString() + " " + read[2].ToString() + "\n";
-                //Events.Add(read[1].ToString() + " " + read[2].ToString());
+                data += read[1].ToString() + " " + read[2].ToString() + "\n";               
             }
             
             textBox1.Text = data;
@@ -186,11 +186,14 @@ namespace CSCI352BigProject
             OleDbDataReader read = cmd2.ExecuteReader();
             while (read.Read())
             {
-                if(!Events.Contains(read[1].ToString() + " " + read[2].ToString()))
+
+                if (!eventDict.ContainsKey(read[1].ToString()))
                 {
-                    Events.Add(read[1].ToString() + " " + read[2].ToString());
+                    eventDict.Add(read[1].ToString(), read[2].ToString());
                 }
                 
+
+
             }
 
             cn.Close();
