@@ -33,6 +33,7 @@ namespace CSCI352BigProject
             InitializeComponent();
 
             cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Events.accdb");
+            readEventsFromDatabase();
 
             MonthSelector.Items.Add("October");
             MonthSelector.Items.Add("November");
@@ -120,8 +121,31 @@ namespace CSCI352BigProject
             }
 
         }
+        private void readEventsFromDatabase()
+        {
+
+            string query = "select * from Events";
+            OleDbCommand cmd = new OleDbCommand(query, cn);
+            cn.Open();
+            OleDbDataReader read = cmd.ExecuteReader();
+            while (read.Read())
+            {
+
+                if (!eventDict.ContainsKey(read[1].ToString()))
+                {
+                    eventDict.Add(read[1].ToString(), read[2].ToString());
+                }
+
+
+
+            }
+
+            cn.Close();
+        }
         private void showEventsButton_Click(object sender, RoutedEventArgs e)
         {
+            textBox1.Text = "";
+            data = "";
             string query = "select * from Events";
             OleDbCommand cmd = new OleDbCommand(query, cn);
             cn.Open();
@@ -180,23 +204,7 @@ namespace CSCI352BigProject
 
             cn.Close();
 
-            string query2 = "select * from Events";
-            OleDbCommand cmd2 = new OleDbCommand(query2, cn);
-            cn.Open();
-            OleDbDataReader read = cmd2.ExecuteReader();
-            while (read.Read())
-            {
-
-                if (!eventDict.ContainsKey(read[1].ToString()))
-                {
-                    eventDict.Add(read[1].ToString(), read[2].ToString());
-                }
-                
-
-
-            }
-
-            cn.Close();
+            readEventsFromDatabase();
         }
 
    
