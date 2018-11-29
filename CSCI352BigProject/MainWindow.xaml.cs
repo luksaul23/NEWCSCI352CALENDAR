@@ -136,13 +136,31 @@ namespace CSCI352BigProject
                     eventDict.Add(read[1].ToString(), read[2].ToString());
                 }
 
-
-
             }
 
             cn.Close();
         }
-        private void showEventsButton_Click(object sender, RoutedEventArgs e)
+        private void removeEventFromDatabase()
+        {
+            string query = "select * from Events";
+            //OleDbCommand cmd = new OleDbCommand(query, cn);
+            String date = dateBox.Text;
+            String ev = eventBox.Text;
+
+
+            // Code for inserting found at:
+            // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
+            OleDbCommand cmd = new OleDbCommand("DELETE from Events WHERE EventDate='" + date + "' and Event='" + ev + "'", cn);
+            cn.Open();
+
+            cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = date;
+            cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = ev;
+
+            cmd.ExecuteNonQuery();
+            cn.Close();
+        }
+
+        private void refreshEventList()
         {
             textBox1.Text = "";
             data = "";
@@ -152,12 +170,18 @@ namespace CSCI352BigProject
             OleDbDataReader read = cmd.ExecuteReader();
             while (read.Read())
             {
-                data += read[1].ToString() + " " + read[2].ToString() + "\n";               
+                data += read[1].ToString() + " " + read[2].ToString() + "\n";
             }
-            
+
             textBox1.Text = data;
 
             cn.Close();
+        }
+
+
+        private void showEventsButton_Click(object sender, RoutedEventArgs e)
+        {
+            refreshEventList();
         }
 
         private void addEventButton_Click(object sender, RoutedEventArgs e)
@@ -184,8 +208,13 @@ namespace CSCI352BigProject
             cn.Close();
 
             readEventsFromDatabase();
+            refreshEventList();
         }
 
-   
+        private void removeEvent_Click(object sender, RoutedEventArgs e)
+        {
+            removeEventFromDatabase();
+            refreshEventList();
+        }
     }
 }
