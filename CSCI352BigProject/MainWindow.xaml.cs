@@ -114,8 +114,11 @@ namespace CSCI352BigProject
                 {
                     TextBlock day = new TextBlock();
                     day.Text = "";
+                    TextBlock eventTitle = new TextBlock();
+                    eventTitle.Text = "";
                     day.HorizontalAlignment = HorizontalAlignment.Left;
                     day.VerticalAlignment = VerticalAlignment.Top;
+                    calendar.Children.Add(eventTitle);
                     calendar.Children.Add(day);
                 }
             }
