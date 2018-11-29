@@ -177,7 +177,9 @@ namespace CSCI352BigProject
             cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = ev;
 
             cmd.ExecuteNonQuery();
- 
+
+            dateBox.Text = "";
+            eventBox.Text = "";
 
             cn.Close();
 
