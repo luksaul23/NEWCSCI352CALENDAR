@@ -173,6 +173,7 @@ namespace CSCI352BigProject
                 data += read[1].ToString() + " " + read[2].ToString() + "\n";
             }
 
+            textBox1.Text = "";
             textBox1.Text = data;
 
             cn.Close();
