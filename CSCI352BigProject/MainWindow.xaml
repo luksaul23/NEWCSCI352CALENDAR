@@ -14,5 +14,6 @@
         <Button x:Name="addEventButton" Content="Add Event" HorizontalAlignment="Left" Margin="1024,339,0,0" VerticalAlignment="Top" Width="76" Click="addEventButton_Click"/>
         <TextBox x:Name="dateBox" HorizontalAlignment="Left" Height="22" Margin="1024,416,0,0" TextWrapping="Wrap" Text="Date" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="eventBox" HorizontalAlignment="Left" Height="23" Margin="1208,424,0,0" TextWrapping="Wrap" Text="Event" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="removeEvent" Content="Remove Event" HorizontalAlignment="Left" Margin="1253,338,0,0" VerticalAlignment="Top" Width="75" Click="removeEvent_Click"/>
     </Grid>
 </Window>
