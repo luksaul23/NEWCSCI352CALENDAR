@@ -33,6 +33,7 @@ namespace CSCI352BigProject
             InitializeComponent();
 
             cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Events.accdb");
+            readEventsFromDatabase();
 
             MonthSelector.Items.Add("October");
             MonthSelector.Items.Add("November");
@@ -113,33 +114,84 @@ namespace CSCI352BigProject
                 {
                     TextBlock day = new TextBlock();
                     day.Text = "";
+                    TextBlock eventTitle = new TextBlock();
+                    eventTitle.Text = "";
                     day.HorizontalAlignment = HorizontalAlignment.Left;
                     day.VerticalAlignment = VerticalAlignment.Top;
+                    calendar.Children.Add(eventTitle);
                     calendar.Children.Add(day);
                 }
             }
 
         }
-        private void showEventsButton_Click(object sender, RoutedEventArgs e)
+        private void readEventsFromDatabase()
         {
+
             string query = "select * from Events";
             OleDbCommand cmd = new OleDbCommand(query, cn);
             cn.Open();
             OleDbDataReader read = cmd.ExecuteReader();
             while (read.Read())
             {
-                data += read[1].ToString() + " " + read[2].ToString() + "\n";               
+
+                if (!eventDict.ContainsKey(read[1].ToString()))
+                {
+                    eventDict.Add(read[1].ToString(), read[2].ToString());
+                }
+
             }
-            
+
+            cn.Close();
+        }
+        private void removeEventFromDatabase()
+        {
+            string query = "select * from Events";
+            //OleDbCommand cmd = new OleDbCommand(query, cn);
+            String date = dateBox.Text;
+            String ev = eventBox.Text;
+
+
+            // Code for inserting found at:
+            // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
+            OleDbCommand cmd = new OleDbCommand("DELETE from Events WHERE EventDate='" + date + "' and Event='" + ev + "'", cn);
+            cn.Open();
+
+            cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = date;
+            cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = ev;
+
+            cmd.ExecuteNonQuery();
+            cn.Close();
+        }
+
+        private void refreshEventList()
+        {
+            textBox1.Text = "";
+            data = "";
+            string query = "select * from Events";
+            OleDbCommand cmd = new OleDbCommand(query, cn);
+            cn.Open();
+            OleDbDataReader read = cmd.ExecuteReader();
+            while (read.Read())
+            {
+                data += read[1].ToString() + " " + read[2].ToString() + "\n";
+            }
+
+            textBox1.Text = "";
             textBox1.Text = data;
 
             cn.Close();
         }
 
+
+        private void showEventsButton_Click(object sender, RoutedEventArgs e)
+        {
+            refreshEventList();
+        }
+
         private void addEventButton_Click(object sender, RoutedEventArgs e)
         {
             string query = "select * from Events";
-            //OleDbCommand cmd = new OleDbCommand(query, cn);
+
             String date = dateBox.Text;
             String ev = eventBox.Text;
             
@@ -153,52 +205,20 @@ namespace CSCI352BigProject
             cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = ev;
 
             cmd.ExecuteNonQuery();
-            /*
-            using (OleDbConnection myCon = new OleDbConnection(ConfigurationManager.ConnectionStrings["DbConn"].ToString()))
-            {
-                OleDbCommand cmd = new OleDbCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "insert into Items ([Item_Name],[Item_Price]) values (?,?);
-   cmd.Parameters.AddWithValue("@item", itemNameTBox.Text);
-                cmd.Parameters.AddWithValue("@price", Convert.ToDouble(itemPriceTBox.Text));
-                cmd.Connection = myCon;
-                myCon.Open();
-                cmd.ExecuteNonQuery();
-                System.Windows.Forms.MessageBox.Show("An Item has been successfully added", "Caption", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            }
-            */
 
-            /*
-            OleDbDataReader read = cmd.ExecuteReader();
-            while (read.Read())
-            {
-                data += read[1].ToString() + " " + read[2].ToString() + "\n";
-            }
-
-            textBox1.Text = data;
-            */
+            dateBox.Text = "";
+            eventBox.Text = "";
 
             cn.Close();
 
-            string query2 = "select * from Events";
-            OleDbCommand cmd2 = new OleDbCommand(query2, cn);
-            cn.Open();
-            OleDbDataReader read = cmd2.ExecuteReader();
-            while (read.Read())
-            {
-
-                if (!eventDict.ContainsKey(read[1].ToString()))
-                {
-                    eventDict.Add(read[1].ToString(), read[2].ToString());
-                }
-                
-
-
-            }
-
-            cn.Close();
+            readEventsFromDatabase();
+            refreshEventList();
         }
 
-   
+        private void removeEvent_Click(object sender, RoutedEventArgs e)
+        {
+            removeEventFromDatabase();
+            refreshEventList();
+        }
     }
 }
