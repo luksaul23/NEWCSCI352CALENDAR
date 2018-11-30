@@ -8,6 +8,6 @@ namespace CSCI352BigProject
 {
     abstract class Months
     {
-        abstract public void SetDays();
+        abstract public string returnMonthStart();
     }
 }

@@ -24,8 +24,6 @@ namespace CSCI352BigProject
 
         string data = "";
         OleDbConnection cn;
-
-        
         Dictionary<string, string> eventDict = new Dictionary<string, string>();
 
         public MainWindow()
@@ -82,8 +80,20 @@ namespace CSCI352BigProject
 
             if (MonthSelector.SelectedIndex == 0)
             {
+                string month = "October";
                 October october = new October(this, eventDict);
-                october.SetDays();
+                AbsFactory Factory = new MonthFactory(this, eventDict);
+                calendar.Children.Clear();
+                Factory.ChangeMonth(month);
+
+                TextBlock title = new TextBlock();
+                title.Text = month;
+                title.FontSize = 40;
+                title.FontWeight = FontWeights.Bold;
+                title.HorizontalAlignment = HorizontalAlignment.Center;
+                title.VerticalAlignment = VerticalAlignment.Center;
+                Grid.SetRow(title, 0);
+                Grid.SetColumnSpan(title, 7);
             }
         }
 
