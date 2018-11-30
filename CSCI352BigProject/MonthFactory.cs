@@ -139,12 +139,60 @@ namespace CSCI352BigProject
                 return eventName;
         }
 
+        public void addTitle(MainWindow mw, string month)
+        {
+            TextBlock title = new TextBlock();
+            title.Text = month;
+            title.FontSize = 40;
+            title.FontWeight = FontWeights.Bold;
+            title.HorizontalAlignment = HorizontalAlignment.Center;
+            title.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(title, 0);
+            Grid.SetColumnSpan(title, 7);
+            _mw.calendar.Children.Add(title);
+        }
+
         public override void buildMonth(string monthStart, string monthName)
         {
             string tempmonth = monthName;
             if (monthStart == "Sunday")
             {
-                addDays();
+                int count = 0;
+
+                for (int i = 2; i < _mw.calendar.RowDefinitions.Count; i++)
+                {
+                    for (int j = 0; j < _mw.calendar.ColumnDefinitions.Count; j++)
+                    {
+                        TextBlock day = new TextBlock();
+                        day.Text = count.ToString();
+                        TextBlock eventTitle = new TextBlock();
+                        day.HorizontalAlignment = HorizontalAlignment.Left;
+                        day.VerticalAlignment = VerticalAlignment.Top;
+                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        day.Margin = new Thickness(10, 10, 0, 0);
+                        if (count > 31)
+                        {
+                            day.Text = "";
+                            eventTitle.Text = "";
+
+                        }
+                        else
+                        {
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, j);
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, j);
+                            eventTitle.Text = setEvent(count, monthName);
+
+
+                            count++;
+                        }
+                        _mw.calendar.Children.Add(day);
+                        _mw.calendar.Children.Add(eventTitle);
+
+                    }
+                }
             }
             else if (monthStart == "Monday")
             {
@@ -259,7 +307,75 @@ namespace CSCI352BigProject
             }
             else if (monthStart == "Wednesday")
             {
+                int count = 0;
+                for (int i = 2; i < _mw.calendar.RowDefinitions.Count; i++)
+                {
+                    for (int j = 0; j < _mw.calendar.ColumnDefinitions.Count; j++)
+                    {
+                        TextBlock day = new TextBlock();
+                        day.Text = count.ToString();
+                        TextBlock eventTitle = new TextBlock();
+                        day.HorizontalAlignment = HorizontalAlignment.Left;
+                        day.VerticalAlignment = VerticalAlignment.Top;
+                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        day.Margin = new Thickness(10, 10, 0, 0);
+                        if (count == 0)
+                        {
+                            int temp = count + 1;
+                            day.Text = "";
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, temp);
+                            eventTitle.Text = "";
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, temp);
+                            count++;
+                        }
+                        else if (count == 1)
+                        {
+                            int temp = count + 2;
+                            day.Text = "";
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, temp);
+                            eventTitle.Text = "";
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, temp);
+                            count++;
+                        }
+                        else if (count == 2)
+                        {
+                            int temp = count + 3;
+                            day.Text = "";
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, temp);
+                            eventTitle.Text = "";
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, temp);
 
+                            count++;
+                        }
+                        else if (count > 32)
+                        {
+                            day.Text = "";
+                            eventTitle.Text = "";
+                        }
+                        else
+                        {
+                            int temp = count - 1;
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, j);
+                            day.Text = temp.ToString();
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, j);
+                            eventTitle.Text = setEvent(temp, monthName);
+
+                            count++;
+                        }
+                        _mw.calendar.Children.Add(day);
+                        _mw.calendar.Children.Add(eventTitle);
+
+                    }
+                }
             }
             else if (monthStart == "Thursday")
             {
@@ -349,7 +465,101 @@ namespace CSCI352BigProject
             }
             else if (monthStart == "Friday")
             {
+                int count = 0;
+                for (int i = 2; i < _mw.calendar.RowDefinitions.Count; i++)
+                {
+                    for (int j = 0; j < _mw.calendar.ColumnDefinitions.Count; j++)
+                    {
+                        TextBlock day = new TextBlock();
+                        day.Text = count.ToString();
+                        TextBlock eventTitle = new TextBlock();
+                        day.HorizontalAlignment = HorizontalAlignment.Left;
+                        day.VerticalAlignment = VerticalAlignment.Top;
+                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        day.Margin = new Thickness(10, 10, 0, 0);
+                        if (count == 0)
+                        {
+                            int temp = count + 1;
+                            day.Text = "";
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, temp);
+                            eventTitle.Text = "";
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, temp);
 
+                            count++;
+                        }
+                        else if (count == 1)
+                        {
+                            int temp = count + 2;
+                            day.Text = "";
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, temp);
+                            eventTitle.Text = "";
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, temp);
+
+                            count++;
+                        }
+                        else if (count == 2)
+                        {
+                            int temp = count + 3;
+                            day.Text = "";
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, temp);
+                            eventTitle.Text = "";
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, temp);
+
+                            count++;
+                        }
+                        else if (count == 3)
+                        {
+                            int temp = count + 4;
+                            day.Text = "";
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, temp);
+                            eventTitle.Text = "";
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, temp);
+
+                            count++;
+                        }
+                        else if (count == 4)
+                        {
+                            int temp = count + 5;
+                            day.Text = "";
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, temp);
+                            eventTitle.Text = "";
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, temp);
+
+                            count++;
+                        }
+                        else if (count > 32)
+                        {
+                            day.Text = "";
+                            eventTitle.Text = "";
+
+                        }
+                        else
+                        {
+                            int temp = count - 4;
+                            Grid.SetRow(day, i);
+                            Grid.SetColumn(day, j);
+                            day.Text = temp.ToString();
+                            Grid.SetRow(eventTitle, i);
+                            Grid.SetColumn(eventTitle, j);
+                            eventTitle.Text = setEvent(temp, monthName);
+                            count++;
+                        }
+                        _mw.calendar.Children.Add(day);
+                        _mw.calendar.Children.Add(eventTitle);
+
+                    }
+                }
             }
             else
             {
@@ -472,17 +682,7 @@ namespace CSCI352BigProject
                 _monthStart = Month.returnMonthStart();
                 buildMonth(_monthStart, monthName);
                 addDays();
-                //Month.SetDays();
-
-                TextBlock title = new TextBlock();
-                title.Text = month;
-                title.FontSize = 40;
-                title.FontWeight = FontWeights.Bold;
-                title.HorizontalAlignment = HorizontalAlignment.Center;
-                title.VerticalAlignment = VerticalAlignment.Center;
-                Grid.SetRow(title, 0);
-                Grid.SetColumnSpan(title, 7);
-                _mw.calendar.Children.Add(title);
+                addTitle(_mw, monthName);
 
                 _monthStart = "";
 
@@ -494,17 +694,7 @@ namespace CSCI352BigProject
                 _monthStart = Month.returnMonthStart();
                 buildMonth(_monthStart, monthName);
                 addDays();
-                //Month.SetDays();
-
-                TextBlock title = new TextBlock();
-                title.Text = month;
-                title.FontSize = 40;
-                title.FontWeight = FontWeights.Bold;
-                title.HorizontalAlignment = HorizontalAlignment.Center;
-                title.VerticalAlignment = VerticalAlignment.Center;
-                Grid.SetRow(title, 0);
-                Grid.SetColumnSpan(title, 7);
-                _mw.calendar.Children.Add(title);
+                addTitle(_mw, monthName);
 
                 _monthStart = "";
 
@@ -516,17 +706,19 @@ namespace CSCI352BigProject
                 _monthStart = Month.returnMonthStart();
                 buildMonth(_monthStart, monthName);
                 addDays();
-                //Month.SetDays();
+                addTitle(_mw, monthName);
 
-                TextBlock title = new TextBlock();
-                title.Text = month;
-                title.FontSize = 40;
-                title.FontWeight = FontWeights.Bold;
-                title.HorizontalAlignment = HorizontalAlignment.Center;
-                title.VerticalAlignment = VerticalAlignment.Center;
-                Grid.SetRow(title, 0);
-                Grid.SetColumnSpan(title, 7);
-                _mw.calendar.Children.Add(title);
+                _monthStart = "";
+
+            }
+            else if (month == "February")
+            {
+                string monthName = "February";
+                Months Month = new February(_mw, _eventPairs);
+                _monthStart = Month.returnMonthStart();
+                buildMonth(_monthStart, monthName);
+                addDays();
+                addTitle(_mw, monthName);
 
                 _monthStart = "";
 
@@ -538,17 +730,7 @@ namespace CSCI352BigProject
                 _monthStart = Month.returnMonthStart();
                 buildMonth(_monthStart, monthName);
                 addDays();
-                //Month.SetDays();
-
-                TextBlock title = new TextBlock();
-                title.Text = month;
-                title.FontSize = 40;
-                title.FontWeight = FontWeights.Bold;
-                title.HorizontalAlignment = HorizontalAlignment.Center;
-                title.VerticalAlignment = VerticalAlignment.Center;
-                Grid.SetRow(title, 0);
-                Grid.SetColumnSpan(title, 7);
-                _mw.calendar.Children.Add(title);
+                addTitle(_mw, monthName);
 
                 _monthStart = "";
 

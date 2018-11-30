@@ -70,6 +70,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EventsDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="February.cs" />
     <Compile Include="January.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

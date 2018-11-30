@@ -37,6 +37,7 @@ namespace CSCI352BigProject
             MonthSelector.Items.Add("November");
             MonthSelector.Items.Add("December");
             MonthSelector.Items.Add("January");
+            MonthSelector.Items.Add("February");
 
             //Define the columns
             ColumnDefinition col0 = new ColumnDefinition();
@@ -85,15 +86,6 @@ namespace CSCI352BigProject
                 AbsFactory Factory = new MonthFactory(this, eventDict);
                 calendar.Children.Clear();
                 Factory.ChangeMonth(month);
-
-                TextBlock title = new TextBlock();
-                title.Text = month;
-                title.FontSize = 40;
-                title.FontWeight = FontWeights.Bold;
-                title.HorizontalAlignment = HorizontalAlignment.Center;
-                title.VerticalAlignment = VerticalAlignment.Center;
-                Grid.SetRow(title, 0);
-                Grid.SetColumnSpan(title, 7);
             }
         }
 
@@ -102,38 +94,9 @@ namespace CSCI352BigProject
             string month = MonthSelector.SelectedItem.ToString();
             AbsFactory Factory = new MonthFactory(this, eventDict);
             calendar.Children.Clear();
-            Factory.ChangeMonth(month);
-
-            TextBlock title = new TextBlock();
-            title.Text = month;
-            title.FontSize = 40;
-            title.FontWeight = FontWeights.Bold;
-            title.HorizontalAlignment = HorizontalAlignment.Center;
-            title.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(title, 0);
-            Grid.SetColumnSpan(title, 7);
-
-            
+            Factory.ChangeMonth(month);            
         }
 
-        void ClearCalendar()
-        {
-            for (int i = 2; i < calendar.RowDefinitions.Count; i++)
-            {
-                for (int j = 0; j < calendar.ColumnDefinitions.Count; j++)
-                {
-                    TextBlock day = new TextBlock();
-                    day.Text = "";
-                    TextBlock eventTitle = new TextBlock();
-                    eventTitle.Text = "";
-                    day.HorizontalAlignment = HorizontalAlignment.Left;
-                    day.VerticalAlignment = VerticalAlignment.Top;
-                    calendar.Children.Add(eventTitle);
-                    calendar.Children.Add(day);
-                }
-            }
-
-        }
         private void readEventsFromDatabase()
         {
 
