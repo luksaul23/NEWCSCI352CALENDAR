@@ -170,21 +170,26 @@ namespace CSCI352BigProject
             refreshEventList();
         }
 
-        private void addEventButton_Click(object sender, RoutedEventArgs e)
+        private void addEventProcess(string date, string ev)
         {
             //string query = "select * from Events";
 
-            String date = dateBox.Text;
-            String ev = eventBox.Text;
-            
+
+            AddEvent addEvent = new AddEvent();
+            addEvent.Show();
+
+
+            String _date = date;
+            String _ev = ev;
+
 
             // Code for inserting found at:
             // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
             OleDbCommand cmd = new OleDbCommand("INSERT into Events (EventDate, Event) Values(@EventDate, @Event)", cn);
             cn.Open();
 
-            cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = date;
-            cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = ev;
+            cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = _date;
+            cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = _ev;
 
             cmd.ExecuteNonQuery();
 
@@ -195,6 +200,27 @@ namespace CSCI352BigProject
 
             readEventsFromDatabase();
             refreshEventList();
+        }
+
+        private void addEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            //string query = "select * from Events";
+            string date = "";
+            string ev = "";
+
+            AddEvent addEventWindow = new AddEvent();
+            addEventWindow.Show();
+
+            date = GlobalVariables.iniVar.date;
+            ev = GlobalVariables.iniVar.ev;
+            if (string.IsNullOrEmpty(date))
+            {
+                
+            }
+            else
+            {
+                addEventProcess(date, ev);
+            }
         }
 
         private void removeEvent_Click(object sender, RoutedEventArgs e)
