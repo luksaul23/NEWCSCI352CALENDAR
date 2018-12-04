@@ -25,6 +25,7 @@ namespace CSCI352BigProject
         string data = "";
         OleDbConnection cn;
         Dictionary<string, string> eventDict = new Dictionary<string, string>();
+        Dictionary<string, string> eventDictIDs = new Dictionary<string, string>();
 
         public MainWindow()
         {
@@ -91,6 +92,7 @@ namespace CSCI352BigProject
 
         private void MonthSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            readEventsFromDatabase();
             string month = MonthSelector.SelectedItem.ToString();
             AbsFactory Factory = new MonthFactory(this, eventDict);
             calendar.Children.Clear();
@@ -99,38 +101,40 @@ namespace CSCI352BigProject
 
         private void readEventsFromDatabase()
         {
-
             string query = "select * from Events";
             OleDbCommand cmd = new OleDbCommand(query, cn);
             cn.Open();
             OleDbDataReader read = cmd.ExecuteReader();
             while (read.Read())
             {
-
                 if (!eventDict.ContainsKey(read[1].ToString()))
                 {
                     eventDict.Add(read[1].ToString(), read[2].ToString());
+                    eventDictIDs.Add(read[0].ToString(), read[2].ToString());
                 }
-
             }
-
             cn.Close();
         }
+
         private void removeEventFromDatabase()
         {
-            string query = "select * from Events";
-            //OleDbCommand cmd = new OleDbCommand(query, cn);
-            String date = dateBox.Text;
-            String ev = eventBox.Text;
+            readEventsFromDatabase();
+            string date = dateBox.Text;
+            string ev = eventBox.Text;
+            decimal id = 0;
 
+            foreach(var k in eventDictIDs)
+            {
+                if (k.Value.Contains(ev))
+                {
+                    id = Decimal.Parse(k.Key);                   
+                }
+            }
 
             // Code for inserting found at:
             // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
-            OleDbCommand cmd = new OleDbCommand("DELETE from Events WHERE EventDate='" + date + "' and Event='" + ev + "'", cn);
+            OleDbCommand cmd = new OleDbCommand("DELETE from Events WHERE id=" + id, cn);
             cn.Open();
-
-            cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = date;
-            cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = ev;
 
             cmd.ExecuteNonQuery();
             cn.Close();
@@ -138,6 +142,7 @@ namespace CSCI352BigProject
 
         private void refreshEventList()
         {
+            readEventsFromDatabase();
             textBox1.Text = "";
             data = "";
             string query = "select * from Events";
@@ -147,23 +152,27 @@ namespace CSCI352BigProject
             while (read.Read())
             {
                 data += read[1].ToString() + " " + read[2].ToString() + "\n";
+                
             }
 
             textBox1.Text = "";
             textBox1.Text = data;
 
             cn.Close();
+
+
         }
 
 
         private void showEventsButton_Click(object sender, RoutedEventArgs e)
         {
+            readEventsFromDatabase();
             refreshEventList();
         }
 
         private void addEventButton_Click(object sender, RoutedEventArgs e)
         {
-            string query = "select * from Events";
+            //string query = "select * from Events";
 
             String date = dateBox.Text;
             String ev = eventBox.Text;

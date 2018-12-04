@@ -175,7 +175,6 @@ namespace CSCI352BigProject
                         {
                             day.Text = "";
                             eventTitle.Text = "";
-
                         }
                         else
                         {
@@ -184,7 +183,6 @@ namespace CSCI352BigProject
                             Grid.SetRow(eventTitle, i);
                             Grid.SetColumn(eventTitle, j);
                             eventTitle.Text = setEvent(count, monthName);
-
 
                             count++;
                         }
