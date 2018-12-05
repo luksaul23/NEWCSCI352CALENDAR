@@ -26,6 +26,16 @@ namespace CSCI352BigProject
             return "Thursday";
         }
 
-       
+        public override int returnMonthLength()
+        {
+            return 30;
+        }
+
+        public override string year()
+        {
+            return "2018";
+        }
+
+
     }
 }

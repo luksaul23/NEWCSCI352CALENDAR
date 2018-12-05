@@ -9,5 +9,7 @@ namespace CSCI352BigProject
     abstract class Months
     {
         abstract public string returnMonthStart();
+        abstract public int returnMonthLength();
+        abstract public string year();
     }
 }

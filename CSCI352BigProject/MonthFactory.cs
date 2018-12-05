@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace CSCI352BigProject
@@ -99,12 +100,13 @@ namespace CSCI352BigProject
             Grid.SetColumn(saturday, 6);
 
             Rectangle rectangle1 = new Rectangle();
-            rectangle1.Fill = System.Windows.Media.Brushes.Gray;
+            rectangle1.Fill = System.Windows.Media.Brushes.LightBlue;
             rectangle1.Stroke = System.Windows.Media.Brushes.Black;
             rectangle1.StrokeThickness = 2;
             Grid.SetRow(rectangle1, 1);
             Grid.SetColumnSpan(rectangle1, 7);
 
+            addBorders();
             _mw.calendar.Children.Add(rectangle1);
             _mw.calendar.Children.Add(sunday);
             _mw.calendar.Children.Add(monday);
@@ -113,7 +115,6 @@ namespace CSCI352BigProject
             _mw.calendar.Children.Add(thursday);
             _mw.calendar.Children.Add(friday);
             _mw.calendar.Children.Add(saturday);
-            addBorders();
 
         }
 
@@ -139,10 +140,10 @@ namespace CSCI352BigProject
                 return eventName;
         }
 
-        public void addTitle(MainWindow mw, string month)
+        public void addTitle(MainWindow mw, string month, Months Month)
         {
             TextBlock title = new TextBlock();
-            title.Text = month;
+            title.Text = month + " " + Month.year();
             title.FontSize = 40;
             title.FontWeight = FontWeights.Bold;
             title.HorizontalAlignment = HorizontalAlignment.Center;
@@ -152,7 +153,7 @@ namespace CSCI352BigProject
             _mw.calendar.Children.Add(title);
         }
 
-        public override void buildMonth(string monthStart, string monthName)
+        public override void buildMonth(string monthStart, string monthName, int monthLength)
         {
             string tempmonth = monthName;
             if (monthStart == "Sunday")
@@ -169,9 +170,9 @@ namespace CSCI352BigProject
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
                         eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
-                        if (count > 31)
+                        if (count > monthLength)
                         {
                             day.Text = "";
                             eventTitle.Text = "";
@@ -206,7 +207,7 @@ namespace CSCI352BigProject
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
                         eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -220,7 +221,7 @@ namespace CSCI352BigProject
 
                             count++;
                         }
-                        else if (count > 31)
+                        else if (count > monthLength)
                         {
                             day.Text = "";
                             eventTitle.Text = "";
@@ -256,7 +257,7 @@ namespace CSCI352BigProject
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
                         eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -280,7 +281,7 @@ namespace CSCI352BigProject
                             Grid.SetColumn(eventTitle, temp);
                             count++;
                         }
-                        else if (count > 32)
+                        else if (count > monthLength + 1)
                         {
                             day.Text = "";
                             eventTitle.Text = "";
@@ -316,7 +317,7 @@ namespace CSCI352BigProject
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
                         eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -352,7 +353,7 @@ namespace CSCI352BigProject
 
                             count++;
                         }
-                        else if (count > 32)
+                        else if (count > monthLength + 2)
                         {
                             day.Text = "";
                             eventTitle.Text = "";
@@ -388,7 +389,7 @@ namespace CSCI352BigProject
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
                         eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -438,7 +439,7 @@ namespace CSCI352BigProject
 
                             count++;
                         }
-                        else if (count > 33)
+                        else if (count > monthLength + 3)
                         {
                             day.Text = "";
                             eventTitle.Text = "";
@@ -474,7 +475,7 @@ namespace CSCI352BigProject
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
                         eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -536,7 +537,7 @@ namespace CSCI352BigProject
 
                             count++;
                         }
-                        else if (count > 32)
+                        else if (count > monthLength + 4)
                         {
                             day.Text = "";
                             eventTitle.Text = "";
@@ -544,7 +545,7 @@ namespace CSCI352BigProject
                         }
                         else
                         {
-                            int temp = count - 4;
+                            int temp = count-4;
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
                             day.Text = temp.ToString();
@@ -572,7 +573,7 @@ namespace CSCI352BigProject
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
                         eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Bottom;
+                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -646,7 +647,7 @@ namespace CSCI352BigProject
 
                             count++;
                         }
-                        else if (count > 36)
+                        else if (count > monthLength + 5)
                         {
                             day.Text = "";
                             eventTitle.Text = "";
@@ -675,60 +676,66 @@ namespace CSCI352BigProject
         {
             if(month == "October")
             {
-                string monthName = "October";
                 Months Month = new October(_mw, _eventPairs);
+                string monthName = "October";
+                int monthLength = Month.returnMonthLength();
                 _monthStart = Month.returnMonthStart();
-                buildMonth(_monthStart, monthName);
                 addDays();
-                addTitle(_mw, monthName);
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
 
                 _monthStart = "";
 
             }
             else if(month == "November")
             {
-                string monthName = "November";
                 Months Month = new November(_mw, _eventPairs);
+                string monthName = "November";
+                int monthLength = Month.returnMonthLength();
                 _monthStart = Month.returnMonthStart();
-                buildMonth(_monthStart, monthName);
                 addDays();
-                addTitle(_mw, monthName);
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
 
                 _monthStart = "";
 
             }
             else if (month == "December")
             {
-                string monthName = "December";
                 Months Month = new December(_mw, _eventPairs);
+                string monthName = "December";
+                int monthLength = Month.returnMonthLength();
                 _monthStart = Month.returnMonthStart();
-                buildMonth(_monthStart, monthName);
                 addDays();
-                addTitle(_mw, monthName);
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
 
                 _monthStart = "";
 
             }
             else if (month == "February")
             {
-                string monthName = "February";
+                
                 Months Month = new February(_mw, _eventPairs);
+                int monthLength = Month.returnMonthLength();
+                string monthName = "February";
                 _monthStart = Month.returnMonthStart();
-                buildMonth(_monthStart, monthName);
                 addDays();
-                addTitle(_mw, monthName);
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
 
                 _monthStart = "";
 
             }
             else
             {
-                string monthName = "January";
                 Months Month = new January(_mw, _eventPairs);
+                string monthName = "January";
+                int monthLength = Month.returnMonthLength();
                 _monthStart = Month.returnMonthStart();
-                buildMonth(_monthStart, monthName);
                 addDays();
-                addTitle(_mw, monthName);
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
 
                 _monthStart = "";
 
