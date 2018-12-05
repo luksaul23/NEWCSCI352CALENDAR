@@ -90,17 +90,29 @@ namespace CSCI352BigProject
             }
         }
 
+        private void refreshCalendar()
+        {
+            readEventsFromDatabase();
+            string month = MonthSelector.SelectedItem.ToString();
+            AbsFactory Factory = new MonthFactory(this, eventDict);
+            calendar.Children.Clear();
+            Factory.ChangeMonth(month);
+        }
+        
+
         private void MonthSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             readEventsFromDatabase();
             string month = MonthSelector.SelectedItem.ToString();
             AbsFactory Factory = new MonthFactory(this, eventDict);
             calendar.Children.Clear();
-            Factory.ChangeMonth(month);            
+            Factory.ChangeMonth(month);
         }
 
         private void readEventsFromDatabase()
         {
+            eventDict.Clear();
+            eventDictIDs.Clear();
             string query = "select * from Events";
             OleDbCommand cmd = new OleDbCommand(query, cn);
             cn.Open();
@@ -116,91 +128,49 @@ namespace CSCI352BigProject
             cn.Close();
         }
 
-        private void removeEventFromDatabase()
-        {
-            readEventsFromDatabase();
-            string date = dateBox.Text;
-            string ev = eventBox.Text;
-            decimal id = 0;
-
-            foreach(var k in eventDictIDs)
-            {
-                if (k.Value.Contains(ev))
-                {
-                    id = Decimal.Parse(k.Key);                   
-                }
-            }
-
-            // Code for inserting found at:
-            // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
-            OleDbCommand cmd = new OleDbCommand("DELETE from Events WHERE id=" + id, cn);
-            cn.Open();
-
-            cmd.ExecuteNonQuery();
-            cn.Close();
-        }
-
-        private void refreshEventList()
-        {
-            readEventsFromDatabase();
-            textBox1.Text = "";
-            data = "";
-            string query = "select * from Events";
-            OleDbCommand cmd = new OleDbCommand(query, cn);
-            cn.Open();
-            OleDbDataReader read = cmd.ExecuteReader();
-            while (read.Read())
-            {
-                data += read[1].ToString() + " " + read[2].ToString() + "\n";
+        //private void refreshEventList()
+        //{
+        //    readEventsFromDatabase();
+        //    textBox1.Text = "";
+        //    data = "";
+        //    string query = "select * from Events";
+        //    OleDbCommand cmd = new OleDbCommand(query, cn);
+        //    cn.Open();
+        //    OleDbDataReader read = cmd.ExecuteReader();
+        //    while (read.Read())
+        //    {
+        //        data += read[1].ToString() + " " + read[2].ToString() + "\n";
                 
-            }
+        //    }
 
-            textBox1.Text = "";
-            textBox1.Text = data;
+        //    textBox1.Text = "";
+        //    textBox1.Text = data;
 
-            cn.Close();
-
-
-        }
+        //    cn.Close();
 
 
-        private void showEventsButton_Click(object sender, RoutedEventArgs e)
-        {
-            readEventsFromDatabase();
-            refreshEventList();
-        }
+        //}
+
 
         private void addEventButton_Click(object sender, RoutedEventArgs e)
         {
-            //string query = "select * from Events";
 
-            String date = dateBox.Text;
-            String ev = eventBox.Text;
-            
-
-            // Code for inserting found at:
-            // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
-            OleDbCommand cmd = new OleDbCommand("INSERT into Events (EventDate, Event) Values(@EventDate, @Event)", cn);
-            cn.Open();
-
-            cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = date;
-            cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = ev;
-
-            cmd.ExecuteNonQuery();
-
-            dateBox.Text = "";
-            eventBox.Text = "";
-
-            cn.Close();
+            AddEvent addEventWindow = new AddEvent();
+            addEventWindow.Show();
 
             readEventsFromDatabase();
-            refreshEventList();
+            //refreshEventList();
+            refreshCalendar();
         }
 
         private void removeEvent_Click(object sender, RoutedEventArgs e)
         {
-            removeEventFromDatabase();
-            refreshEventList();
+            RemoveEvent removeEventWindow = new RemoveEvent();
+            removeEventWindow.Show();
+
+            readEventsFromDatabase();
+            //refreshEventList();
+            refreshCalendar();
         }
     }
 }

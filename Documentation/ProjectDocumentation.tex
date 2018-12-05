@@ -697,11 +697,11 @@ Use Case ID & Use Case Name & Primary Actor & Complexity & Priority \\
 \hline
 2 & Delete event from calendar & User & Med & 1\\
 \hline
-3 & Add task to TODO List & User & Med & 1\\
+3 & Add task to TODO List & User & Easy & 1\\
 \hline
 4 & Remove task from TODO List& User & Med & 1\\
 \hline
-5 & Check off a task from the TODO List & User & Med & 2\\
+5 & Check off a task from the TODO List & User & Easy & 2\\
 \hline
 \hline
 
@@ -720,7 +720,7 @@ Use Case ID & Use Case Name & Primary Actor & Complexity & Priority \\
 \begin{enumerate}
 \item User navigates to the "Add Event" Button.
 \item User left-clicks on "Add Event" button.
-\item The User is then directed to a pop-up window where they will input the information for the event.
+\item The User is then directed to a pop-up window where they will input the information for the event. Figure \ref{addEvent}
 \item[Termination Outcome:] The User has now added an event to their calendar which will be reflected on the calendar.
 \end{enumerate}
 
@@ -739,7 +739,7 @@ Alternative: That event already exists.
 \begin{itemize}
 \item[Use Case Number:] 2
 \item[Use Case Name:] Delete event from calendar.
-\item[Description:] A user has either made an error in adding an event or an event has passed and they need to remove it. They will click on the Remove Event button which will begin the process for removing an event from the calendar.
+\item[Description:] A user has either made an error in adding an event or an event has passed and they need to remove it. They will click on the Remove Event button which will begin the process for removing an event from the calendar. Figure \ref{removeEvent}
 \end{itemize}
 
 \begin{enumerate}
@@ -797,14 +797,26 @@ Alternative: That event doesn't exist.
 \end{enumerate}
 
 \subsection{Interface Mockups}
-At first, this will largely be completely made up, as you get further along in your project, and closer to a final product, this will typically become simple screenshots of your running application.
+%At first, this will largely be completely made up, as you get further along in your project, and closer to a final product, this will typically become simple screenshots of your running application.
 
-In this subsection, you will be showing what the screen should look like as the user moves through various use cases (make sure to tie the interface mockups back to the specific use cases they illustrate).
+%In this subsection, you will be showing what the screen should look like as the user moves through various use cases (make sure to tie the interface mockups back to the specific use cases they illustrate).
 
 \begin{figure}[ht!]
-\includegraphics[height=250px, width=450px]{MockUp_2.png}
-\caption{First picture of an interface mockup}
+\includegraphics[height=250px, width=450px]{calendar1.png}
+\caption{Picture of the interface}
 \label{mockup1}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[height=250px, width=200px]{addEvent.png}
+\caption{Picture of the event addition interface}
+\label{addEvent}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[height=250px, width=200px]{removeEvent.png}
+\caption{Picture of the event removal interface}
+\label{removeEvent}
 \end{figure}
 
 
@@ -815,12 +827,12 @@ Go back to your notes and look up a typical project development life cycle for t
 At first, this will be a little empty (it will need to be filled in by the time you turn in your final report).  This is your chance to discuss all of your design decisions (consider this the README's big brother).
 
 \subsection{UML Outline}
-Show the full structure of your program.  Make sure to keep on updating this section as your project evolves (you often start out with one plan, but end up modifying things as you move along).  As a note, while Dia fails miserably at generating pdfs (probably my fault), I have had much success with png files.  Make sure to wrap your images in a \texttt{figure} environment, and to reference with the \texttt{ref} command.  For example, see Figure \ref{cat2}.
+Show the full structure of your program.  Make sure to keep on updating this section as your project evolves (you often start out with one plan, but end up modifying things as you move along).  As a note, while Dia fails miserably at generating pdfs (probably my fault), I have had much success with png files.  Make sure to wrap your images in a \texttt{figure} environment, and to reference with the \texttt{ref} command.  For example, see Figure %\ref{cat2}.
 
 \begin{figure}[ht!]
-\includegraphics[scale=1.5]{cat2.jpg}
-\caption{Your figures should be in the \emph{figure} environment, and have captions.  Should also be of diagrams pertaining to your project, not random internet kittens}
-\label{cat2}
+\includegraphics[scale=.45]{UML1.jpeg}
+\caption{UML of the project as it is structured so far}
+\label{UML1}
 \end{figure}
 
 
