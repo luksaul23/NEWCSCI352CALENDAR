@@ -652,11 +652,11 @@ The ultimate goals for this semester regarding this program is to create an inde
 This program will be fairly similar to Google Calendar or Window's calendar even but much more customizable in that you will be able to change the background and layout to a couple different presets. We have witnessed that a great many users have trouble staying on track with their busy schedules, which is why we'll be creating this app to help people stay organized.
 
 \subsection{Challenges}
-We believe that the hardest part of this project for now will be creating a reliable system for reminders and events. This might require making the progam runnable in the background and adding Windows reminders for the user in the fashion of the notifications that you receive in the bottom right in Windows 10.
+We believe that the hardest part of this project for now will be creating a reliable system for reminders and events. This might require making the progam runnable in the background and adding reminders in Windows for the user in the fashion of the notifications that you receive in the bottom right in Windows 10.
 
 \section{Scope}
 
-This project will be finished once the user can store an event/reminder in the calendar and be successfully reminded of the event. The reminders should synchronize with the user's Google calendar. We also want to have a number of customization options available to the user to make the program look how they want it to look. This would include customizable background colors/pictures and layouts.
+This project will be finished once the user can store an event into the calendar with the event showing up on the right day. Another factor in the project's completion is the ability to add and remove/check-off tasks from their TODO List. Once these two events have been added the core of the program will be done.
 
 %This section is a bit tricksy.  You are going to do your best to set up ground rules:  How will you know when your project is done?
 
@@ -673,6 +673,7 @@ We developed these requirements from what we have seen as good ideas in calendar
 \item The program will need to store events locally and keep track of them.
 \item The user should be able to alter the aesthetic of the program via background pictures, colors, sizes, layout.
 \item The user should be able to add a "reminder" or short term event, and be notified of its happening on the desktop.
+\item The user should be able to add a task to their TODO List so they may keep track of the completion of said task.
 \end{itemize}
 
 \subsubsection{Non-Functional}
@@ -800,19 +801,21 @@ Alternative: That event doesn't exist.
 %At first, this will largely be completely made up, as you get further along in your project, and closer to a final product, this will typically become simple screenshots of your running application.
 
 %In this subsection, you will be showing what the screen should look like as the user moves through various use cases (make sure to tie the interface mockups back to the specific use cases they illustrate).
-
+Main Interface \ref{mockup1}
 \begin{figure}[ht!]
 \includegraphics[height=250px, width=450px]{calendar1.png}
 \caption{Picture of the interface}
 \label{mockup1}
 \end{figure}
 
+Event Addition \ref{addEvent}
 \begin{figure}[ht!]
 \includegraphics[height=250px, width=200px]{addEvent.png}
 \caption{Picture of the event addition interface}
 \label{addEvent}
 \end{figure}
 
+Event Removal \ref{removeEvent}
 \begin{figure}[ht!]
 \includegraphics[height=250px, width=200px]{removeEvent.png}
 \caption{Picture of the event removal interface}
@@ -824,7 +827,8 @@ Alternative: That event doesn't exist.
 Go back to your notes and look up a typical project development life cycle for the Waterfall approach.  How will you follow this life cycle over the remainder of this semester?  This will usually involve a chart showing your proposed timeline, with specific milestones plotted out.  Make sure you have deliverable dates from the course schedule listed, with a plan to meet them (NOTE: these are generally optimistic deadlines).
 
 \section{Project Structure}
-At first, this will be a little empty (it will need to be filled in by the time you turn in your final report).  This is your chance to discuss all of your design decisions (consider this the README's big brother).
+%At first, this will be a little empty (it will need to be filled in by the time you turn in your final report).  This is your chance to discuss all of your design decisions (consider this the README's big brother).
+The first design decision was on how to build the calendar. We went with a calendar build on a grid view because this would allow for a much more customizable calendar, which was one of our big goals.
 
 \subsection{UML Outline}
  Figure \ref{UML1}.
