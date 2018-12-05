@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RemoveEvent.xaml.cs">
+      <DependentUpon>RemoveEvent.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,12 +81,15 @@
       <DependentUpon>EventsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="February.cs" />
-    <Compile Include="GlobalVariables.cs" />
     <Compile Include="January.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RemoveEvent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MonthFactory.cs" />
