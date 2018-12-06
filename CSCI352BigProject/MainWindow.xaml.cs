@@ -27,17 +27,25 @@ namespace CSCI352BigProject
         OleDbConnection todoCN;
         Dictionary<string, string> eventDict = new Dictionary<string, string>();
         Dictionary<string, string> eventDictIDs = new Dictionary<string, string>();
+        List<string> toDoList = new List<string>();
+        List<CheckBox> checkBoxes = new List<CheckBox>();
+        
+        int MAX_TODOS = 3;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            checkBoxes.Add(checkBox1);
+            checkBoxes.Add(checkBox2);
+            checkBoxes.Add(checkBox3);
 
             cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Events.accdb");
             readEventsFromDatabase();
 
             todoCN = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\ToDos.accdb");
 
-            //checkBox1.Visibility = System.Windows.Visibility.Hidden;
+            checkBox1.Visibility = System.Windows.Visibility.Hidden;
             updateToDos();
 
             MonthSelector.Items.Add("October");
@@ -181,15 +189,121 @@ namespace CSCI352BigProject
 
         private void updateToDos()
         {
+            // Hide all checkboxes so user doesn't see changes
+            for (int i = 0; i < checkBoxes.Count(); ++i)
+            {
+                checkBoxes[i].Visibility = Visibility.Hidden;
+            }
+
+            // Set up database connection
             string query = "select * from ToDos";
             OleDbCommand cmd = new OleDbCommand(query, todoCN);
             todoCN.Open();
             OleDbDataReader read = cmd.ExecuteReader();
+            int verticalOffset = 150;
+
+
+            toDoList.Clear();
             while (read.Read())
             {
-                checkBox1.Content = read[0].ToString();
+                // Update list holding all to-dos
+                toDoList.Add(read[0].ToString());
+            }
+            // Update check boxes
+            int numToDos = toDoList.Count();
+            for (int i = 0; i < numToDos; ++i)
+            {
+                //checkBox2.Content = "In updateToDos()";
+                checkBoxes[i].Content = toDoList[i];
+                checkBoxes[i].Visibility = Visibility.Visible;
+                /*
+                CheckBox c = new CheckBox();
+                c.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                c.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+                c.Margin = new System.Windows.Thickness(1067, 300, 0, 0);
+                c.Content = toDoList[i];
+                c.Visibility = System.Windows.Visibility.Visible;
+                calendar.Children.Add(c);
+                */
+            }
+
+            if (numToDos == MAX_TODOS)
+            {
+                addToDoBox.Visibility = Visibility.Hidden;
+                addToDoButton.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                addToDoBox.Visibility = Visibility.Visible;
+                addToDoButton.Visibility = Visibility.Visible;
             }
             todoCN.Close();
+        }
+
+        private void addToDoButton_Click(object sender, RoutedEventArgs e)
+        {
+            int numToDos = toDoList.Count();
+            if (numToDos < MAX_TODOS)
+            {
+                string todo = addToDoBox.Text;
+                string query = "INSERT into ToDos (ToDo) Values(@ToDo)";
+                OleDbCommand cmd = new OleDbCommand(query, todoCN);
+                todoCN.Open();
+                cmd.Parameters.Add("@ToDo", OleDbType.VarChar).Value = todo;
+                cmd.ExecuteNonQuery();
+                addToDoBox.Text = "";
+                todoCN.Close();
+                updateToDos();
+            }
+               
+        }
+
+        private void checkBox1_Checked(object sender, RoutedEventArgs e)
+        {
+            // Remove item from database
+            //string td = this.Content.ToString();
+            OleDbCommand cmd = new OleDbCommand("DELETE from ToDos WHERE [ToDo]= @ToDo", todoCN);
+            todoCN.Open();
+            cmd.Parameters.AddWithValue("@ToDo", checkBox1.Content.ToString());
+
+            cmd.ExecuteNonQuery();
+            todoCN.Close();
+            // uncheck box
+            checkBox1.IsChecked = false;
+            // Update checkboxes
+            updateToDos();
+        }
+
+        private void checkBox2_Checked(object sender, RoutedEventArgs e)
+        {
+            // Remove item from database
+            //string td = this.Content.ToString();
+            OleDbCommand cmd = new OleDbCommand("DELETE from ToDos WHERE [ToDo]= @ToDo", todoCN);
+            todoCN.Open();
+            cmd.Parameters.AddWithValue("@ToDo", checkBox2.Content.ToString());
+
+            cmd.ExecuteNonQuery();
+            todoCN.Close();
+            // uncheck box
+            checkBox2.IsChecked = false;
+            // Update checkboxes
+            updateToDos();
+        }
+
+        private void checkBox3_Checked(object sender, RoutedEventArgs e)
+        {
+            // Remove item from database
+            //string td = this.Content.ToString();
+            OleDbCommand cmd = new OleDbCommand("DELETE from ToDos WHERE [ToDo]= @ToDo", todoCN);
+            todoCN.Open();
+            cmd.Parameters.AddWithValue("@ToDo", checkBox3.Content.ToString());
+
+            cmd.ExecuteNonQuery();
+            todoCN.Close();
+            // uncheck box
+            checkBox3.IsChecked = false;
+            // Update checkboxes
+            updateToDos();
         }
     }
 }
