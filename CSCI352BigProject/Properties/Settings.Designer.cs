@@ -32,5 +32,15 @@ namespace CSCI352BigProject.Properties {
                 return ((string)(this["EventsConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\ToDos.accdb")]
+        public string ToDosConnectionString {
+            get {
+                return ((string)(this["ToDosConnectionString"]));
+            }
+        }
     }
 }

@@ -11,5 +11,8 @@
         <ComboBox x:Name="MonthSelector" SelectedIndex="0" HorizontalAlignment="Left" Margin="1018,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="MonthSelector_SelectionChanged"/>
         <Button x:Name="addEventButton" Content="Add Event" HorizontalAlignment="Left" Margin="1018,639,0,0" VerticalAlignment="Top" Width="76" Click="addEventButton_Click"/>
         <Button x:Name="removeEvent" Content="Remove Event" HorizontalAlignment="Left" Margin="1099,639,0,0" VerticalAlignment="Top" Width="83" Click="removeEvent_Click"/>
+        <CheckBox x:Name="checkBox1" Content="CheckBox" HorizontalAlignment="Left" Margin="1067,150,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox2" Content="CheckBox" HorizontalAlignment="Left" Margin="1067,200,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox3" Content="CheckBox" HorizontalAlignment="Left" Margin="1067,250,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

@@ -24,6 +24,7 @@ namespace CSCI352BigProject
 
         string data = "";
         OleDbConnection cn;
+        OleDbConnection todoCN;
         Dictionary<string, string> eventDict = new Dictionary<string, string>();
         Dictionary<string, string> eventDictIDs = new Dictionary<string, string>();
 
@@ -33,6 +34,11 @@ namespace CSCI352BigProject
 
             cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Events.accdb");
             readEventsFromDatabase();
+
+            todoCN = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\ToDos.accdb");
+
+            //checkBox1.Visibility = System.Windows.Visibility.Hidden;
+            updateToDos();
 
             MonthSelector.Items.Add("October");
             MonthSelector.Items.Add("November");
@@ -171,6 +177,19 @@ namespace CSCI352BigProject
             readEventsFromDatabase();
             //refreshEventList();
             refreshCalendar();
+        }
+
+        private void updateToDos()
+        {
+            string query = "select * from ToDos";
+            OleDbCommand cmd = new OleDbCommand(query, todoCN);
+            todoCN.Open();
+            OleDbDataReader read = cmd.ExecuteReader();
+            while (read.Read())
+            {
+                checkBox1.Content = read[0].ToString();
+            }
+            todoCN.Close();
         }
     }
 }
