@@ -30,7 +30,7 @@ namespace CSCI352BigProject
         List<string> toDoList = new List<string>();
         List<CheckBox> checkBoxes = new List<CheckBox>();
         
-        int MAX_TODOS = 3;
+        int MAX_TODOS = 5;
 
         public MainWindow()
         {
@@ -39,6 +39,8 @@ namespace CSCI352BigProject
             checkBoxes.Add(checkBox1);
             checkBoxes.Add(checkBox2);
             checkBoxes.Add(checkBox3);
+            checkBoxes.Add(checkBox4);
+            checkBoxes.Add(checkBox5);
 
             cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Events.accdb");
             readEventsFromDatabase();
@@ -62,6 +64,7 @@ namespace CSCI352BigProject
             ColumnDefinition col4 = new ColumnDefinition();
             ColumnDefinition col5 = new ColumnDefinition();
             ColumnDefinition col6 = new ColumnDefinition();
+            //ColumnDefinition col7 = new ColumnDefinition();
 
             //Add the columns
             calendar.ColumnDefinitions.Add(col0);
@@ -71,6 +74,7 @@ namespace CSCI352BigProject
             calendar.ColumnDefinitions.Add(col4);
             calendar.ColumnDefinitions.Add(col5);
             calendar.ColumnDefinitions.Add(col6);
+            //todoListGrid.ColumnDefinitions.Add(col7);
 
             //Define the rows
             RowDefinition row0 = new RowDefinition();
@@ -81,6 +85,11 @@ namespace CSCI352BigProject
             RowDefinition row5 = new RowDefinition();
             RowDefinition row6 = new RowDefinition();
             RowDefinition row7 = new RowDefinition();
+            //RowDefinition row8 = new RowDefinition();
+            //RowDefinition row9 = new RowDefinition();
+            //RowDefinition row10 = new RowDefinition();
+            //RowDefinition row11 = new RowDefinition();
+            //RowDefinition row12 = new RowDefinition();
 
 
 
@@ -93,7 +102,12 @@ namespace CSCI352BigProject
             calendar.RowDefinitions.Add(row5);
             calendar.RowDefinitions.Add(row6);
             calendar.RowDefinitions.Add(row7);
-
+            //todoListGrid.RowDefinitions.Add(row8);
+            //todoListGrid.RowDefinitions.Add(row9);
+            //todoListGrid.RowDefinitions.Add(row10);
+            //todoListGrid.RowDefinitions.Add(row11);
+            //todoListGrid.RowDefinitions.Add(row12);
+            //populateList();
             if (MonthSelector.SelectedIndex == 0)
             {
                 string month = "October";
@@ -102,7 +116,27 @@ namespace CSCI352BigProject
                 calendar.Children.Clear();
                 Factory.ChangeMonth(month);
             }
+
+
         }
+
+        //private void populateList()
+        //{
+           
+        //    for(int i = 0; i < 5; i++)
+        //    {
+        //        CheckBox checkBox = new CheckBox();
+        //        checkBox.Content = "Test";
+        //        checkBox.VerticalAlignment = VerticalAlignment.Center;
+        //        checkBox.HorizontalAlignment = HorizontalAlignment.Center;
+
+        //        Grid.SetColumn(checkBox, 0);
+        //        Grid.SetRow(checkBox, i);
+        //        checkBoxes.Add(checkBox);
+        //        todoListGrid.Children.Add(checkBox);
+        //    }
+        //    //todoListGrid.Children.Add(checkBox);
+        //}
 
         private void refreshCalendar()
         {
@@ -142,28 +176,6 @@ namespace CSCI352BigProject
             cn.Close();
         }
 
-        //private void refreshEventList()
-        //{
-        //    readEventsFromDatabase();
-        //    textBox1.Text = "";
-        //    data = "";
-        //    string query = "select * from Events";
-        //    OleDbCommand cmd = new OleDbCommand(query, cn);
-        //    cn.Open();
-        //    OleDbDataReader read = cmd.ExecuteReader();
-        //    while (read.Read())
-        //    {
-        //        data += read[1].ToString() + " " + read[2].ToString() + "\n";
-                
-        //    }
-
-        //    textBox1.Text = "";
-        //    textBox1.Text = data;
-
-        //    cn.Close();
-
-
-        //}
 
 
         private void addEventButton_Click(object sender, RoutedEventArgs e)
@@ -213,18 +225,19 @@ namespace CSCI352BigProject
             int numToDos = toDoList.Count();
             for (int i = 0; i < numToDos; ++i)
             {
+               
                 //checkBox2.Content = "In updateToDos()";
                 checkBoxes[i].Content = toDoList[i];
                 checkBoxes[i].Visibility = Visibility.Visible;
-                /*
-                CheckBox c = new CheckBox();
-                c.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                c.VerticalAlignment = System.Windows.VerticalAlignment.Top;
-                c.Margin = new System.Windows.Thickness(1067, 300, 0, 0);
-                c.Content = toDoList[i];
-                c.Visibility = System.Windows.Visibility.Visible;
-                calendar.Children.Add(c);
-                */
+                
+                //CheckBox c = new CheckBox();
+                //c.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                //c.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+                //c.Margin = new System.Windows.Thickness(1067, 300, 0, 0);
+                //c.Content = toDoList[i];
+                //c.Visibility = System.Windows.Visibility.Visible;
+                //mainGrid.Children.Add(c);
+                
             }
 
             if (numToDos == MAX_TODOS)
@@ -302,6 +315,38 @@ namespace CSCI352BigProject
             todoCN.Close();
             // uncheck box
             checkBox3.IsChecked = false;
+            // Update checkboxes
+            updateToDos();
+        }
+
+        private void checkBox4_Checked_1(object sender, RoutedEventArgs e)
+        {
+            // Remove item from database
+            //string td = this.Content.ToString();
+            OleDbCommand cmd = new OleDbCommand("DELETE from ToDos WHERE [ToDo]= @ToDo", todoCN);
+            todoCN.Open();
+            cmd.Parameters.AddWithValue("@ToDo", checkBox4.Content.ToString());
+
+            cmd.ExecuteNonQuery();
+            todoCN.Close();
+            // uncheck box
+            checkBox4.IsChecked = false;
+            // Update checkboxes
+            updateToDos();
+        }
+
+        private void checkBox5_Checked_1(object sender, RoutedEventArgs e)
+        {
+            // Remove item from database
+            //string td = this.Content.ToString();
+            OleDbCommand cmd = new OleDbCommand("DELETE from ToDos WHERE [ToDo]= @ToDo", todoCN);
+            todoCN.Open();
+            cmd.Parameters.AddWithValue("@ToDo", checkBox5.Content.ToString());
+
+            cmd.ExecuteNonQuery();
+            todoCN.Close();
+            // uncheck box
+            checkBox5.IsChecked = false;
             // Update checkboxes
             updateToDos();
         }

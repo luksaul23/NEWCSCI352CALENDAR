@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CSCI352BigProject"
         mc:Ignorable="d"
         Title="HomeBase" Height="700" Width="1400">
-    <Grid>
+    <Grid x:Name="mainGrid">
         <Grid x:Name="calendar" HorizontalAlignment="Left" Height="650" Margin="10,10,0,0" VerticalAlignment="Top" Width="1003" ShowGridLines="False"/>
         <ComboBox x:Name="MonthSelector" SelectedIndex="0" HorizontalAlignment="Left" Margin="1018,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="MonthSelector_SelectionChanged"/>
         <Button x:Name="addEventButton" Content="Add Event" HorizontalAlignment="Left" Margin="1018,639,0,0" VerticalAlignment="Top" Width="76" Click="addEventButton_Click"/>
@@ -17,6 +17,8 @@
         <TextBox x:Name="addToDoBox" HorizontalAlignment="Left" Height="23" Margin="1099,512,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="addToDoButton" Content="Add To Do
                 " HorizontalAlignment="Left" Margin="1275,516,0,0" VerticalAlignment="Top" Width="75" Click="addToDoButton_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="1067,111,0,0" TextWrapping="Wrap" Text="To Do List" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1067,50,0,0" TextWrapping="Wrap" Text="To Do List" VerticalAlignment="Top" FontSize="20"/>
+        <CheckBox x:Name="checkBox4" Content="CheckBox" HorizontalAlignment="Left" Margin="1067,301,0,0" VerticalAlignment="Top" Checked="checkBox4_Checked_1"/>
+        <CheckBox x:Name="checkBox5" Content="CheckBox" HorizontalAlignment="Left" Margin="1068,352,0,0" VerticalAlignment="Top" Checked="checkBox5_Checked_1"/>
     </Grid>
 </Window>
