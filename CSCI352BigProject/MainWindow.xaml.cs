@@ -40,6 +40,7 @@ namespace CSCI352BigProject
             MonthSelector.Items.Add("December");
             MonthSelector.Items.Add("January");
             MonthSelector.Items.Add("February");
+            MonthSelector.Items.Add("September");
 
             //Define the columns
             ColumnDefinition col0 = new ColumnDefinition();

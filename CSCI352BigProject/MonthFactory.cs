@@ -16,6 +16,8 @@ namespace CSCI352BigProject
         Dictionary<string, string> _eventPairs = new Dictionary<string, string>();
         public string _monthStart;
 
+        int currentDayNum = System.DateTime.Now.Day;
+
 
         public MonthFactory(MainWindow mw, Dictionary<string, string> eventPairs)
         {
@@ -133,7 +135,7 @@ namespace CSCI352BigProject
 
                         if (temp == c.ToString())
                         {
-                            eventName += k.Value + "\n";
+                            eventName += k.Value;
                         }
                     }
                 }
@@ -158,7 +160,7 @@ namespace CSCI352BigProject
             string tempmonth = monthName;
             if (monthStart == "Sunday")
             {
-                int count = 0;
+                int count = 1;
 
                 for (int i = 2; i < _mw.calendar.RowDefinitions.Count; i++)
                 {
@@ -166,29 +168,35 @@ namespace CSCI352BigProject
                     {
                         TextBlock day = new TextBlock();
                         day.Text = count.ToString();
-                        TextBlock eventTitle = new TextBlock();
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
-                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
+                        TextBlock eventTitle = new TextBlock();
+                        EventTextBlockDecorator decorator = new ChangeColor(eventTitle);
+                        decorator.HorizontalAlignment = HorizontalAlignment.Center;
+                        decorator.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
+
                         if (count > monthLength)
                         {
                             day.Text = "";
-                            eventTitle.Text = "";
+                            decorator.Text = "";
                         }
                         else
                         {
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, j);
-                            eventTitle.Text = setEvent(count, monthName);
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, j);
+                            decorator.Text = setEvent(count, monthName);
+                            if (currentDayNum == count)
+                            {
+                                decorator.changeColor();
+                            }
 
                             count++;
                         }
                         _mw.calendar.Children.Add(day);
-                        _mw.calendar.Children.Add(eventTitle);
+                        _mw.calendar.Children.Add(decorator);
 
                     }
                 }
@@ -203,11 +211,12 @@ namespace CSCI352BigProject
                     {
                         TextBlock day = new TextBlock();
                         day.Text = count.ToString();
-                        TextBlock eventTitle = new TextBlock();
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
-                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
+                        TextBlock eventTitle = new TextBlock();
+                        EventTextBlockDecorator decorator = new ChangeColor(eventTitle);
+                        decorator.HorizontalAlignment = HorizontalAlignment.Center;
+                        decorator.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -215,31 +224,35 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
                         else if (count > monthLength)
                         {
                             day.Text = "";
-                            eventTitle.Text = "";
+                            decorator.Text = "";
 
                         }
                         else
                         {
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, j);
-                            eventTitle.Text = setEvent(count, monthName);
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, j);
+                            decorator.Text = setEvent(count, monthName);
+                            if (count == currentDayNum)
+                            {
+                                decorator.changeColor();
+                            }
 
 
                             count++;
                         }
                         _mw.calendar.Children.Add(day);
-                        _mw.calendar.Children.Add(eventTitle);
+                        _mw.calendar.Children.Add(decorator);
 
                     }
                 }
@@ -253,11 +266,12 @@ namespace CSCI352BigProject
                     {
                         TextBlock day = new TextBlock();
                         day.Text = count.ToString();
-                        TextBlock eventTitle = new TextBlock();
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
-                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
+                        TextBlock eventTitle = new TextBlock();
+                        EventTextBlockDecorator decorator = new ChangeColor(eventTitle);
+                        decorator.HorizontalAlignment = HorizontalAlignment.Center;
+                        decorator.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -265,9 +279,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
                             count++;
                         }
                         else if (count == 1)
@@ -276,15 +290,15 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
                             count++;
                         }
                         else if (count > monthLength + 1)
                         {
                             day.Text = "";
-                            eventTitle.Text = "";
+                            decorator.Text = "";
                         }
                         else
                         {
@@ -292,14 +306,18 @@ namespace CSCI352BigProject
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
                             day.Text = temp.ToString();
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, j);
-                            eventTitle.Text = setEvent(temp,monthName);
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, j);
+                            decorator.Text = setEvent(temp,monthName);
+                            if (temp == currentDayNum)
+                            {
+                                decorator.changeColor();
+                            }
 
                             count++;
                         }
                         _mw.calendar.Children.Add(day);
-                        _mw.calendar.Children.Add(eventTitle);
+                        _mw.calendar.Children.Add(decorator);
 
                     }
                 }
@@ -313,11 +331,12 @@ namespace CSCI352BigProject
                     {
                         TextBlock day = new TextBlock();
                         day.Text = count.ToString();
-                        TextBlock eventTitle = new TextBlock();
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
-                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
+                        TextBlock eventTitle = new TextBlock();
+                        EventTextBlockDecorator decorator = new ChangeColor(eventTitle);
+                        decorator.HorizontalAlignment = HorizontalAlignment.Center;
+                        decorator.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -325,9 +344,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
                             count++;
                         }
                         else if (count == 1)
@@ -336,9 +355,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
                             count++;
                         }
                         else if (count == 2)
@@ -347,16 +366,16 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
                         else if (count > monthLength + 2)
                         {
                             day.Text = "";
-                            eventTitle.Text = "";
+                            decorator.Text = "";
                         }
                         else
                         {
@@ -364,14 +383,18 @@ namespace CSCI352BigProject
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
                             day.Text = temp.ToString();
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, j);
-                            eventTitle.Text = setEvent(temp, monthName);
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, j);
+                            decorator.Text = setEvent(temp, monthName);
+                            if (temp == currentDayNum)
+                            {
+                                decorator.changeColor();
+                            }
 
                             count++;
                         }
                         _mw.calendar.Children.Add(day);
-                        _mw.calendar.Children.Add(eventTitle);
+                        _mw.calendar.Children.Add(decorator);
 
                     }
                 }
@@ -385,11 +408,12 @@ namespace CSCI352BigProject
                     {
                         TextBlock day = new TextBlock();
                         day.Text = count.ToString();
-                        TextBlock eventTitle = new TextBlock();
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
-                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
+                        TextBlock eventTitle = new TextBlock();
+                        EventTextBlockDecorator decorator = new ChangeColor(eventTitle);
+                        decorator.HorizontalAlignment = HorizontalAlignment.Center;
+                        decorator.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -397,9 +421,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -409,9 +433,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -421,9 +445,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -433,16 +457,16 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
                         else if (count > monthLength + 3)
                         {
                             day.Text = "";
-                            eventTitle.Text = "";
+                            decorator.Text = "";
 
                         }
                         else
@@ -451,13 +475,17 @@ namespace CSCI352BigProject
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
                             day.Text = temp.ToString();
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, j);
-                            eventTitle.Text = setEvent(temp,monthName);
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, j);
+                            decorator.Text = setEvent(temp,monthName);
+                            if (temp == currentDayNum)
+                            {
+                                decorator.changeColor();
+                            }
                             count++;
                         }
                         _mw.calendar.Children.Add(day);
-                        _mw.calendar.Children.Add(eventTitle);
+                        _mw.calendar.Children.Add(decorator);
 
                     }
                 }
@@ -471,11 +499,12 @@ namespace CSCI352BigProject
                     {
                         TextBlock day = new TextBlock();
                         day.Text = count.ToString();
-                        TextBlock eventTitle = new TextBlock();
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
-                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
+                        TextBlock eventTitle = new TextBlock();
+                        EventTextBlockDecorator decorator = new ChangeColor(eventTitle);
+                        decorator.HorizontalAlignment = HorizontalAlignment.Center;
+                        decorator.VerticalAlignment = VerticalAlignment.Center;
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -483,9 +512,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -495,9 +524,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -507,9 +536,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -519,9 +548,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -531,16 +560,16 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
                         else if (count > monthLength + 4)
                         {
                             day.Text = "";
-                            eventTitle.Text = "";
+                            decorator.Text = "";
 
                         }
                         else
@@ -549,13 +578,17 @@ namespace CSCI352BigProject
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
                             day.Text = temp.ToString();
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, j);
-                            eventTitle.Text = setEvent(temp, monthName);
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, j);
+                            decorator.Text = setEvent(temp, monthName);
+                            if (temp == currentDayNum)
+                            {
+                                decorator.changeColor();
+                            }
                             count++;
                         }
                         _mw.calendar.Children.Add(day);
-                        _mw.calendar.Children.Add(eventTitle);
+                        _mw.calendar.Children.Add(decorator);
 
                     }
                 }
@@ -570,10 +603,15 @@ namespace CSCI352BigProject
                         TextBlock day = new TextBlock();
                         day.Text = count.ToString();
                         TextBlock eventTitle = new TextBlock();
+                        EventTextBlockDecorator decorator = new ChangeColor(eventTitle);
+                        decorator.HorizontalAlignment = HorizontalAlignment.Center;
+                        decorator.VerticalAlignment = VerticalAlignment.Center;
                         day.HorizontalAlignment = HorizontalAlignment.Left;
                         day.VerticalAlignment = VerticalAlignment.Top;
-                        eventTitle.HorizontalAlignment = HorizontalAlignment.Center;
-                        eventTitle.VerticalAlignment = VerticalAlignment.Center;
+                        if (currentDayNum == count)
+                        {
+                            decorator.changeColor();
+                        }
                         day.Margin = new Thickness(10, 10, 0, 0);
                         if (count == 0)
                         {
@@ -581,9 +619,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -593,9 +631,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -605,9 +643,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -617,9 +655,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -629,9 +667,9 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
@@ -641,31 +679,34 @@ namespace CSCI352BigProject
                             day.Text = "";
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, temp);
-                            eventTitle.Text = "";
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, temp);
+                            decorator.Text = "";
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, temp);
 
                             count++;
                         }
                         else if (count > monthLength + 5)
                         {
                             day.Text = "";
-                            eventTitle.Text = "";
+                            decorator.Text = "";
                         }
                         else
                         {
                             int temp = count - 5;
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
-                            Grid.SetRow(eventTitle, i);
-                            Grid.SetColumn(eventTitle, j);
+                            Grid.SetRow(decorator, i);
+                            Grid.SetColumn(decorator, j);
                             day.Text = temp.ToString();
-                            eventTitle.Text = setEvent(temp, monthName);
-
+                            decorator.Text = setEvent(temp, monthName);
+                            if(temp == currentDayNum)
+                            {
+                                decorator.changeColor();
+                            }
                             count++;
                         }
                         _mw.calendar.Children.Add(day);
-                        _mw.calendar.Children.Add(eventTitle);
+                        _mw.calendar.Children.Add(decorator);
                     }
                 }
 
@@ -719,6 +760,20 @@ namespace CSCI352BigProject
                 Months Month = new February(_mw, _eventPairs);
                 int monthLength = Month.returnMonthLength();
                 string monthName = "February";
+                _monthStart = Month.returnMonthStart();
+                addDays();
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
+
+                _monthStart = "";
+
+            }
+            else if (month == "September")
+            {
+
+                Months Month = new September(_mw, _eventPairs);
+                int monthLength = Month.returnMonthLength();
+                string monthName = "September";
                 _monthStart = Month.returnMonthStart();
                 addDays();
                 addTitle(_mw, monthName, Month);
