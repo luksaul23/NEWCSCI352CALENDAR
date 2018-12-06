@@ -21,33 +21,52 @@ namespace CSCI352BigProject
     public partial class AddEvent : Window
     {
         OleDbConnection cn;
+        public event EventHandler eventAdded;
 
         public AddEvent()
         {
             cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Events.accdb");
             InitializeComponent();
+
         }
+
 
         public void addEventToDatabase()
         {
             String _date = dateBox.Text;
             String _ev = eventBox.Text;
 
+            if (dateBox.Text != "" || eventBox.Text != "")
+            {
+                // Code for inserting found at:
+                // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
+                OleDbCommand cmd = new OleDbCommand("INSERT into Events (EventDate, Event) Values(@EventDate, @Event)", cn);
+                cn.Open();
 
-            // Code for inserting found at:
-            // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
-            OleDbCommand cmd = new OleDbCommand("INSERT into Events (EventDate, Event) Values(@EventDate, @Event)", cn);
-            cn.Open();
+                cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = _date;
+                cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = _ev;
 
-            cmd.Parameters.Add("@EventDate", OleDbType.VarChar).Value = _date;
-            cmd.Parameters.Add("@Event", OleDbType.VarChar).Value = _ev;
+                cmd.ExecuteNonQuery();
 
-            cmd.ExecuteNonQuery();
+                dateBox.Text = "";
+                eventBox.Text = "";
 
-            dateBox.Text = "";
-            eventBox.Text = "";
+                cn.Close();
+            }
+            else
+            {
+                // Code for inserting found at:
+                // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
+                OleDbCommand cmd = new OleDbCommand("select * from Events", cn);
+                cn.Open();
 
-            cn.Close();
+                cmd.ExecuteNonQuery();
+
+                dateBox.Text = "";
+                eventBox.Text = "";
+
+                cn.Close();
+            }
         }
 
         private void addEvent_Click(object sender, RoutedEventArgs e)
@@ -55,5 +74,7 @@ namespace CSCI352BigProject
             addEventToDatabase();
             this.Close();
         }
+
+        
     }
 }
