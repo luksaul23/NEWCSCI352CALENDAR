@@ -23,6 +23,7 @@ namespace CSCI352BigProject
     {
 
         string data = "";
+        string month = "";
         OleDbConnection cn;
         Dictionary<string, string> eventDict = new Dictionary<string, string>();
         Dictionary<string, string> eventDictIDs = new Dictionary<string, string>();
@@ -39,6 +40,7 @@ namespace CSCI352BigProject
             MonthSelector.Items.Add("December");
             MonthSelector.Items.Add("January");
             MonthSelector.Items.Add("February");
+            MonthSelector.Items.Add("September");
 
             //Define the columns
             ColumnDefinition col0 = new ColumnDefinition();
@@ -68,8 +70,6 @@ namespace CSCI352BigProject
             RowDefinition row6 = new RowDefinition();
             RowDefinition row7 = new RowDefinition();
 
-
-
             //Add the rows
             calendar.RowDefinitions.Add(row0);
             calendar.RowDefinitions.Add(row1);
@@ -87,13 +87,13 @@ namespace CSCI352BigProject
                 AbsFactory Factory = new MonthFactory(this, eventDict);
                 calendar.Children.Clear();
                 Factory.ChangeMonth(month);
-            }
+            }           
         }
 
-        private void refreshCalendar()
+        public void refreshCalendar()
         {
             readEventsFromDatabase();
-            string month = MonthSelector.SelectedItem.ToString();
+            month = MonthSelector.SelectedItem.ToString();
             AbsFactory Factory = new MonthFactory(this, eventDict);
             calendar.Children.Clear();
             Factory.ChangeMonth(month);
@@ -102,11 +102,7 @@ namespace CSCI352BigProject
 
         private void MonthSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            readEventsFromDatabase();
-            string month = MonthSelector.SelectedItem.ToString();
-            AbsFactory Factory = new MonthFactory(this, eventDict);
-            calendar.Children.Clear();
-            Factory.ChangeMonth(month);
+            refreshCalendar();
         }
 
         private void readEventsFromDatabase()
@@ -128,49 +124,30 @@ namespace CSCI352BigProject
             cn.Close();
         }
 
-        //private void refreshEventList()
-        //{
-        //    readEventsFromDatabase();
-        //    textBox1.Text = "";
-        //    data = "";
-        //    string query = "select * from Events";
-        //    OleDbCommand cmd = new OleDbCommand(query, cn);
-        //    cn.Open();
-        //    OleDbDataReader read = cmd.ExecuteReader();
-        //    while (read.Read())
-        //    {
-        //        data += read[1].ToString() + " " + read[2].ToString() + "\n";
-                
-        //    }
-
-        //    textBox1.Text = "";
-        //    textBox1.Text = data;
-
-        //    cn.Close();
-
-
-        //}
-
-
         private void addEventButton_Click(object sender, RoutedEventArgs e)
-        {
-
+        {  
             AddEvent addEventWindow = new AddEvent();
             addEventWindow.Show();
-
-            readEventsFromDatabase();
-            //refreshEventList();
-            refreshCalendar();
+            addEventWindow.Closed += AddEventWindow_Closed;
         }
 
         private void removeEvent_Click(object sender, RoutedEventArgs e)
         {
             RemoveEvent removeEventWindow = new RemoveEvent();
             removeEventWindow.Show();
+            removeEventWindow.Closed += RemoveEventWindow_Closed;
+        }
 
+        private void AddEventWindow_Closed(object sender, EventArgs e)
+        {
             readEventsFromDatabase();
-            //refreshEventList();
             refreshCalendar();
         }
+
+        private void RemoveEventWindow_Closed(object sender, EventArgs e)
+        {
+            readEventsFromDatabase();
+            refreshCalendar();
+        }       
     }
 }

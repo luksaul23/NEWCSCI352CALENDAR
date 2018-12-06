@@ -50,6 +50,7 @@ namespace CSCI352BigProject
         private void removeEventFromDatabase()
         {
             readEventsFromDatabase();
+            string query = "DELETE from Events WHERE id=";
             string date = dateBox.Text;
             string ev = eventBox.Text;
             decimal id = 0;
@@ -62,13 +63,26 @@ namespace CSCI352BigProject
                 }
             }
 
-            // Code for inserting found at:
-            // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
-            OleDbCommand cmd = new OleDbCommand("DELETE from Events WHERE id=" + id, cn);
-            cn.Open();
+            if (dateBox.Text != "" && eventBox.Text != "")
+            {
+                // Code for inserting found at:
+                // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
+                OleDbCommand cmd = new OleDbCommand(query + id, cn);
+                cn.Open();
 
-            cmd.ExecuteNonQuery();
-            cn.Close();
+                cmd.ExecuteNonQuery();
+                cn.Close();
+            }
+            else
+            {
+                // Code for inserting found at:
+                // https://stackoverflow.com/questions/19275557/c-sharp-inserting-data-from-a-form-into-an-access-database
+                OleDbCommand cmd = new OleDbCommand("select * from Events", cn);
+                cn.Open();
+
+                cmd.ExecuteNonQuery();
+                cn.Close();
+            }
         }
 
         private void removeEvent_Click(object sender, RoutedEventArgs e)
