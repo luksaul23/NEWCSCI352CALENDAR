@@ -67,6 +67,11 @@
       <DependentUpon>RemoveEvent.xaml</DependentUpon>
     </Compile>
     <Compile Include="September.cs" />
+    <Compile Include="ToDosDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToDosDataSet.xsd</DependentUpon>
+    </Compile>
     <Page Include="AddEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +142,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="ToDosDataSet.xsc">
+      <DependentUpon>ToDosDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ToDosDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ToDosDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ToDosDataSet.xss">
+      <DependentUpon>ToDosDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -145,6 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Events.accdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ToDos.accdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

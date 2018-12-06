@@ -11,5 +11,13 @@
         <ComboBox x:Name="MonthSelector" SelectedIndex="0" HorizontalAlignment="Left" Margin="1018,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="MonthSelector_SelectionChanged"/>
         <Button x:Name="addEventButton" Content="Add Event" HorizontalAlignment="Left" Margin="1018,639,0,0" VerticalAlignment="Top" Width="76" Click="addEventButton_Click"/>
         <Button x:Name="removeEvent" Content="Remove Event" HorizontalAlignment="Left" Margin="1099,639,0,0" VerticalAlignment="Top" Width="83" Click="removeEvent_Click"/>
+        <CheckBox x:Name="checkBox1" Content="CheckBox" HorizontalAlignment="Left" Margin="1099,175,0,0" VerticalAlignment="Top" Checked="checkBox1_Checked_1"/>
+        <CheckBox x:Name="checkBox2" Content="CheckBox" HorizontalAlignment="Left" Margin="1099,226,0,0" VerticalAlignment="Top" Checked="checkBox2_Checked_1"/>
+        <CheckBox x:Name="checkBox4" Content="CheckBox" HorizontalAlignment="Left" Margin="1099,326,0,0" VerticalAlignment="Top" Checked="checkBox4_Checked"/>
+        <CheckBox x:Name="checkBox3" Content="CheckBox" HorizontalAlignment="Left" Margin="1099,274,0,0" VerticalAlignment="Top" Checked="checkBox3_Checked_1"/>
+        <CheckBox x:Name="checkBox5" Content="CheckBox" HorizontalAlignment="Left" Margin="1099,376,0,0" VerticalAlignment="Top" Checked="checkBox5_Checked"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1099,82,0,0" TextWrapping="Wrap" Text="TODO List" VerticalAlignment="Top" FontSize="36"/>
+        <TextBox x:Name="addToDoBox" HorizontalAlignment="Left" Height="23" Margin="1099,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="addToDoButton" Content="Add Task" HorizontalAlignment="Left" Margin="1255,433,0,0" VerticalAlignment="Top" Width="75" Click="addToDoButton_Click_1"/>
     </Grid>
 </Window>
