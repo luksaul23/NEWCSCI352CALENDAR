@@ -55,8 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="April.cs" />
+    <Compile Include="August.cs" />
     <Compile Include="EventTextBlockDecorator.cs" />
     <Compile Include="ChangeColor.cs" />
+    <Compile Include="July.cs" />
+    <Compile Include="June.cs" />
+    <Compile Include="March.cs" />
+    <Compile Include="May.cs" />
     <Compile Include="RemoveEvent.xaml.cs">
       <DependentUpon>RemoveEvent.xaml</DependentUpon>
     </Compile>

@@ -379,7 +379,7 @@ namespace CSCI352BigProject
                         }
                         else
                         {
-                            int temp = count - 1;
+                            int temp = count - 2;
                             Grid.SetRow(day, i);
                             Grid.SetColumn(day, j);
                             day.Text = temp.ToString();
@@ -760,6 +760,90 @@ namespace CSCI352BigProject
                 Months Month = new February(_mw, _eventPairs);
                 int monthLength = Month.returnMonthLength();
                 string monthName = "February";
+                _monthStart = Month.returnMonthStart();
+                addDays();
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
+
+                _monthStart = "";
+
+            }
+            else if (month == "March")
+            {
+
+                Months Month = new March(_mw, _eventPairs);
+                int monthLength = Month.returnMonthLength();
+                string monthName = "March";
+                _monthStart = Month.returnMonthStart();
+                addDays();
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
+
+                _monthStart = "";
+
+            }
+            else if (month == "April")
+            {
+
+                Months Month = new April(_mw, _eventPairs);
+                int monthLength = Month.returnMonthLength();
+                string monthName = "April";
+                _monthStart = Month.returnMonthStart();
+                addDays();
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
+
+                _monthStart = "";
+
+            }
+            else if (month == "May")
+            {
+
+                Months Month = new May(_mw, _eventPairs);
+                int monthLength = Month.returnMonthLength();
+                string monthName = "May";
+                _monthStart = Month.returnMonthStart();
+                addDays();
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
+
+                _monthStart = "";
+
+            }
+            else if (month == "June")
+            {
+
+                Months Month = new June(_mw, _eventPairs);
+                int monthLength = Month.returnMonthLength();
+                string monthName = "June";
+                _monthStart = Month.returnMonthStart();
+                addDays();
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
+
+                _monthStart = "";
+
+            }
+            else if (month == "July")
+            {
+
+                Months Month = new July(_mw, _eventPairs);
+                int monthLength = Month.returnMonthLength();
+                string monthName = "July";
+                _monthStart = Month.returnMonthStart();
+                addDays();
+                addTitle(_mw, monthName, Month);
+                buildMonth(_monthStart, monthName, monthLength);
+
+                _monthStart = "";
+
+            }
+            else if (month == "August")
+            {
+
+                Months Month = new August(_mw, _eventPairs);
+                int monthLength = Month.returnMonthLength();
+                string monthName = "August";
                 _monthStart = Month.returnMonthStart();
                 addDays();
                 addTitle(_mw, monthName, Month);
