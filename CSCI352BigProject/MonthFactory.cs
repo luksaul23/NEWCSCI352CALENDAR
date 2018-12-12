@@ -19,6 +19,7 @@ namespace CSCI352BigProject
         int currentDayNum = System.DateTime.Now.Day;
 
 
+
         public MonthFactory(MainWindow mw, Dictionary<string, string> eventPairs)
         {
             _mw = mw;

@@ -649,10 +649,10 @@ The ultimate goals for this semester regarding this program is to create an inde
 
 \subsection{Background}
 
-This program will be fairly similar to Google Calendar or Window's calendar even but much more customizable in that you will be able to change the background and layout to a couple different presets. We have witnessed that a great many users have trouble staying on track with their busy schedules, which is why we'll be creating this app to help people stay organized.
+This program will be fairly similar to Google Calendar or Window's calendar even but much more customizable in that you will be able to change the background and layout to a couple different presets. We have witnessed that a great many users have trouble staying on track with their busy schedules, which is why we'll be creating this app to help people stay organized. We plan to use the Google Calendar API to allow for people to keep this calendar 
 
 \subsection{Challenges}
-We believe that the hardest part of this project for now will be creating a reliable system for reminders and events. This might require making the progam runnable in the background and adding reminders in Windows for the user in the fashion of the notifications that you receive in the bottom right in Windows 10.
+We found that WPF applications have quite a few limitations that impeded on our development of this application with the given time and our experience with them. We found that the calendar tool provided was very restrictive in terms of visual customization so we opted to build our own. This was fairly difficult and ate up a lot of dev time. We also struggled with getting the visual customization running using our calendar. In the end, we didn't get a chance to implement much of the customization aspects or the Google Calendar synchronization due to time constraints. 
 
 \section{Scope}
 
@@ -669,7 +669,6 @@ We developed these requirements from what we have seen as good ideas in calendar
 
 \subsubsection{Functional}
 \begin{itemize}
-\item User needs to have a Google account. This will allow them to syncronize their local calendar with their Google Calendar.
 \item The program will need to store events locally and keep track of them.
 \item The user should be able to alter the aesthetic of the program via background pictures, colors, sizes, layout.
 \item The user should be able to add a "reminder" or short term event, and be notified of its happening on the desktop.
@@ -803,24 +802,30 @@ Alternative: That event doesn't exist.
 %In this subsection, you will be showing what the screen should look like as the user moves through various use cases (make sure to tie the interface mockups back to the specific use cases they illustrate).
 Main Interface \ref{mockup1}
 \begin{figure}[ht!]
-\includegraphics[height=250px, width=450px]{calendar1.png}
+\includegraphics[height=250px, width=450px]{Capture.jpg}
 \caption{Picture of the interface}
 \label{mockup1}
 \end{figure}
 
+Here the user is greeted with the main screen. Calendar on the left and TODO list on the right. The month can be changed using the dropbox to the upper right of the calendar and events can be added or removed using the buttons to the bottom right of the calendar. Tasks can be added to the TODO list via the button and text box below the TODO list area, tasks are removed when the checkbox has been checked. \ref{mockup1}
+
 Event Addition \ref{addEvent}
 \begin{figure}[ht!]
-\includegraphics[height=250px, width=200px]{addEvent.png}
+\includegraphics[height=250px, width=200px]{Capture1.jpg}
 \caption{Picture of the event addition interface}
 \label{addEvent}
 \end{figure}
 
+Here a user may add an event to the calendar by inputting the information into the textboxes and clicking Add Event. \ref{addEvent}
+
 Event Removal \ref{removeEvent}
 \begin{figure}[ht!]
-\includegraphics[height=250px, width=200px]{removeEvent.png}
+\includegraphics[height=250px, width=200px]{Capture2.jpg}
 \caption{Picture of the event removal interface}
 \label{removeEvent}
 \end{figure}
+
+Here a user may remove an event fromt the calendar by putting the event's information into the textboxes and clicking Remove Event. \ref{removeEvent}
 
 
 \section{Project Timeline}
@@ -847,16 +852,14 @@ The first design decision was on how to build the calendar. We went with a calen
 Figure \ref{UML1}.
 
 \begin{figure}[ht!]
-\includegraphics[scale=.45]{UML1.jpeg}
+\includegraphics[scale=.3]{UML1.jpeg}
 \caption{UML of the project as it is structured so far}
 \label{UML1}
 \end{figure}
 
-
 \subsection{Design Patterns Used}
 %Make sure to actually use at least 2 design patterns from this class.  This is not normally part of such documentation, but largely just specific to this class -- I want to see you use the patterns!
-We used the Abstract Factory pattern to make each month in the calendar. We also use the TODO pattern to do TODO.
-
+We used the Factory pattern to make each month in the calendar. We also used the Decorator Pattern to decorate events in the calendar.
 
 \section{Results}
 %This section will start out a little vague, but it should grow as your project evolves.  With each deliverable you hand in, give me a final summary of where your project stands.  By the end, this should be a reflective section discussing how many of your original goals you managed to attain/how many desired use cases you implemented/how many extra features you added.
@@ -866,7 +869,7 @@ We were able to get the basic functionality of the calendar working. We were not
 %Where are you going next with your project?
 %For early deliverables, what are your next steps?  (HINT: you will typically want to look back at your timeline and evaluate: did you meet your expected goals?  Are you ahead of schedule?  Did you decide to shift gears and implement a new feature?)
 %By the end, what do you plan on doing with this project?  Will you try to sell it?  Set it on fire?  Link to it on your resume and forget it exists?
-To make this app more useful, we would like to let the user login with their Google account to keep their calendars synced across multiple devices.
+To make this app more useful, we would like to let the user login with their Google account to keep their calendars synced across multiple devices. We would also like to add some customization aspects to the calendar such as color scheme, layout, etc.
 
 
 
